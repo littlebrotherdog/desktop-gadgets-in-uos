@@ -1,4 +1,4 @@
-# proj175
+# proj175-desktop-gadgets-in-uos
 
 ## 您的动机是什么？
 ## 为什么您要创建这个项目？
