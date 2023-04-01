@@ -3,7 +3,7 @@
         <file>main.qml</file>
         <file>Panel.qml</file>
         <file>Card.qml</file>
-        <file>script/weather.js</file>
+        <file>script/my_f.js</file>
         <file>Weather1.qml</file>
         <file>CardWindow.qml</file>
         <file>image/memo1</file>
@@ -26,4 +26,5 @@
         <file>image/ghost.gif</file>
         <file>Clock_rect.qml</file>
     </qresource>
+    <qresource prefix="/new/prefix1"/>
 </RCC>

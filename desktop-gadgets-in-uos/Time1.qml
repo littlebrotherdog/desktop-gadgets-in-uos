@@ -1,5 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.1
+import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: card_t1
@@ -8,6 +11,43 @@ Rectangle {
     border.color: "#afb0b2"
     border.width: 0
     color: "#f9957f"
+
+    Timer{
+        id:timer
+        interval: 1000
+        repeat:true
+        running:false
+        onTriggered: {
+            s++;
+            if(s<10)
+            {
+                str_s = "0" + s;
+            }else{
+                str_s = s;
+            }
+            if(m<10)
+            {
+                str_m = "0" + m;
+            }else{
+                str_m = m;
+            }
+            if(h<10)
+            {
+                str_h = "0" + h;
+            }else{
+                str_h = h;
+            }
+            if(s>=60){
+                s=0;
+                m++;
+            }
+            if(m>=60){
+                m=0;
+                h++;
+            }
+        }
+    }
+
     gradient:Gradient {
         GradientStop {position: 0.0; color: "#00BFFF"}
         GradientStop {position: 1.0; color: "#4169E1"}
@@ -48,13 +88,40 @@ Rectangle {
         repeat: true
         running: true
         triggeredOnStart: true
+        /*MouseArea {
+                 anchors.fill: parent
+                 drag.target: rect
+                 drag.axis: Drag.XAxis
+                 drag.minimumX: 0
+                 drag.maximumX: container.width - rect.width
+                 drag.filterChildren:false
+                 Rectangle{
+                    id:childrenRectangle
+                    color: "blue"
+                    width: 30; height: 30
+                    anchors.bottom: rect.bottom
+                    anchors.right: rect.right
+                    MouseArea {
+                       anchors.fill: parent
+                       onPressed: console.log("123");
+                 }
+             }
+         }*/
         onTriggered: {
-            var date = Qt.formatDateTime(new Date(), qsTr("hh:mm"))
+            var date = Qt.formatDateTime(new Date(), qsTr("h:m"))
             t_label1.text = date
             date = Qt.formatDateTime(new Date(), qsTr("yyyy年M月d日"))
             t_label2.text = date
             date = Qt.formatDateTime(new Date(), qsTr("dddd"))
             t_label3.text = date
         }
+    }
+
+    Component.onDestruction: {
+        var cnt=0;
+        for(var i = 0; i < command.memo_all_txt.length; i++) {
+            console.log(command.memo_all_txt[i]);
+        }
+        console.log("yessssssss!")
     }
 }

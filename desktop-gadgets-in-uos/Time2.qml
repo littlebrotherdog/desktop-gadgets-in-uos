@@ -8,6 +8,42 @@ Rectangle {
     width: 240
     height: 120
 
+    Timer{
+        id:timer
+        interval: 1000
+        repeat:true
+        running:false
+        onTriggered: {
+            s++;
+            if(s<10)
+            {
+                str_s = "0" + s;
+            }else{
+                str_s = s;
+            }
+            if(m<10)
+            {
+                str_m = "0" + m;
+            }else{
+                str_m = m;
+            }
+            if(h<10)
+            {
+                str_h = "0" + h;
+            }else{
+                str_h = h;
+            }
+            if(s>=60){
+                s=0;
+                m++;
+            }
+            if(m>=60){
+                m=0;
+                h++;
+            }
+        }
+    }
+
     gradient:Gradient {
         GradientStop {position: 0.0; color: "#00BFFF"}
         GradientStop {position: 1.0; color: "#4169E1"}
@@ -47,8 +83,27 @@ Rectangle {
         repeat: true
         running: true
         triggeredOnStart: true
+        /*MouseArea {
+                 anchors.fill: parent
+                 drag.target: rect
+                 drag.axis: Drag.XAxis
+                 drag.minimumX: 0
+                 drag.maximumX: container.width - rect.width
+                 drag.filterChildren:false
+                 Rectangle{
+                    id:childrenRectangle
+                    color: "blue"
+                    width: 30; height: 30
+                    anchors.bottom: rect.bottom
+                    anchors.right: rect.right
+                    MouseArea {
+                       anchors.fill: parent
+                       onPressed: console.log("123");
+                 }
+             }
+         }*/
         onTriggered: {
-            var date = Qt.formatDateTime(new Date(), qsTr("hh:mm"))
+            var date = Qt.formatDateTime(new Date(), qsTr("h:m"))
             t_label1.text = date
             date = Qt.formatDateTime(new Date(), qsTr("yyyy年M月d日"))
             t_label2.text = date
@@ -82,10 +137,8 @@ Rectangle {
                 height :25
                 width: 48
                 anchors.horizontalCenter: parent.horizontalCenter
-
-                onClicked:
-                {
-                    if(text=="开 始"){
+                onClicked: {
+                     if(text=="开 始"){
                         clock.timer.start()
                         text="暂 停"
                     }else{
@@ -94,6 +147,13 @@ Rectangle {
                     }
                 }
         }
+    }
 
+    Component.onDestruction: {
+        var cnt=0;
+        for(var i = 0; i < command.memo_all_txt.length; i++) {
+            console.log(command.memo_all_txt[i]);
+        }
+        console.log("yessssssss!")
     }
 }

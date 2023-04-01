@@ -52,7 +52,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../desktop-gadgets-in-uos/main.cpp qrc_qml_qmlcache.cpp \
+SOURCES       = ../desktop-gadgets-in-uos/main.cpp \
+		../desktop-gadgets-in-uos/timer.cpp qrc_qml_qmlcache.cpp \
 		Weather1_qml.cpp \
 		Time4_qml.cpp \
 		Memo1_qml.cpp \
@@ -67,9 +68,10 @@ SOURCES       = ../desktop-gadgets-in-uos/main.cpp qrc_qml_qmlcache.cpp \
 		main_qml.cpp \
 		Panel_qml.cpp \
 		Memo2_qml.cpp \
-		script_weather_js.cpp \
+		script_my_f_js.cpp \
 		qmlcache_loader.cpp
 OBJECTS       = main.o \
+		timer.o \
 		qrc_qml_qmlcache.o \
 		Weather1_qml.o \
 		Time4_qml.o \
@@ -85,7 +87,7 @@ OBJECTS       = main.o \
 		main_qml.o \
 		Panel_qml.o \
 		Memo2_qml.o \
-		script_weather_js.o \
+		script_my_f_js.o \
 		qmlcache_loader.o
 DIST          = ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/common/unix.conf \
@@ -280,7 +282,8 @@ DIST          = ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/lex.prf \
-		../desktop-gadgets-in-uos/desktop-gadgets-in-uos.pro  ../desktop-gadgets-in-uos/main.cpp
+		../desktop-gadgets-in-uos/desktop-gadgets-in-uos.pro ../desktop-gadgets-in-uos/timer.h ../desktop-gadgets-in-uos/main.cpp \
+		../desktop-gadgets-in-uos/timer.cpp
 QMAKE_TARGET  = desktop-gadgets-in-uos
 DESTDIR       = 
 TARGET        = desktop-gadgets-in-uos
@@ -698,10 +701,11 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents qml_qmlcache.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/Weather1.qml ../desktop-gadgets-in-uos/Time4.qml ../desktop-gadgets-in-uos/Memo1.qml ../desktop-gadgets-in-uos/Weather4.qml ../desktop-gadgets-in-uos/Memo4.qml ../desktop-gadgets-in-uos/Card.qml ../desktop-gadgets-in-uos/Time2.qml ../desktop-gadgets-in-uos/Clock_rect.qml ../desktop-gadgets-in-uos/CardWindow.qml ../desktop-gadgets-in-uos/Weather2.qml ../desktop-gadgets-in-uos/Time1.qml ../desktop-gadgets-in-uos/main.qml ../desktop-gadgets-in-uos/Panel.qml ../desktop-gadgets-in-uos/Memo2.qml ../desktop-gadgets-in-uos/script/weather.js $(DISTDIR)/
+	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/Weather1.qml ../desktop-gadgets-in-uos/Time4.qml ../desktop-gadgets-in-uos/Memo1.qml ../desktop-gadgets-in-uos/Weather4.qml ../desktop-gadgets-in-uos/Memo4.qml ../desktop-gadgets-in-uos/Card.qml ../desktop-gadgets-in-uos/Time2.qml ../desktop-gadgets-in-uos/Clock_rect.qml ../desktop-gadgets-in-uos/CardWindow.qml ../desktop-gadgets-in-uos/Weather2.qml ../desktop-gadgets-in-uos/Time1.qml ../desktop-gadgets-in-uos/main.qml ../desktop-gadgets-in-uos/Panel.qml ../desktop-gadgets-in-uos/Memo2.qml ../desktop-gadgets-in-uos/script/my_f.js $(DISTDIR)/
 	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/timer.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/main.cpp ../desktop-gadgets-in-uos/timer.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -742,9 +746,9 @@ qrc_qml_qmlcache.cpp: qml_qmlcache.qrc \
 		../desktop-gadgets-in-uos/image/memo1
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/rcc -name qml_qmlcache qml_qmlcache.qrc -o qrc_qml_qmlcache.cpp
 
-compiler_qmlcache_make_all: Weather1_qml.cpp Time4_qml.cpp Memo1_qml.cpp Weather4_qml.cpp Memo4_qml.cpp Card_qml.cpp Time2_qml.cpp Clock_rect_qml.cpp CardWindow_qml.cpp Weather2_qml.cpp Time1_qml.cpp main_qml.cpp Panel_qml.cpp Memo2_qml.cpp script_weather_js.cpp
+compiler_qmlcache_make_all: Weather1_qml.cpp Time4_qml.cpp Memo1_qml.cpp Weather4_qml.cpp Memo4_qml.cpp Card_qml.cpp Time2_qml.cpp Clock_rect_qml.cpp CardWindow_qml.cpp Weather2_qml.cpp Time1_qml.cpp main_qml.cpp Panel_qml.cpp Memo2_qml.cpp script_my_f_js.cpp
 compiler_qmlcache_clean:
-	-$(DEL_FILE) Weather1_qml.cpp Time4_qml.cpp Memo1_qml.cpp Weather4_qml.cpp Memo4_qml.cpp Card_qml.cpp Time2_qml.cpp Clock_rect_qml.cpp CardWindow_qml.cpp Weather2_qml.cpp Time1_qml.cpp main_qml.cpp Panel_qml.cpp Memo2_qml.cpp script_weather_js.cpp
+	-$(DEL_FILE) Weather1_qml.cpp Time4_qml.cpp Memo1_qml.cpp Weather4_qml.cpp Memo4_qml.cpp Card_qml.cpp Time2_qml.cpp Clock_rect_qml.cpp CardWindow_qml.cpp Weather2_qml.cpp Time1_qml.cpp main_qml.cpp Panel_qml.cpp Memo2_qml.cpp script_my_f_js.cpp
 Weather1_qml.cpp: ../desktop-gadgets-in-uos/Weather1.qml \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather1_qml.cpp ../desktop-gadgets-in-uos/Weather1.qml
@@ -801,9 +805,9 @@ Memo2_qml.cpp: ../desktop-gadgets-in-uos/Memo2.qml \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Memo2_qml.cpp ../desktop-gadgets-in-uos/Memo2.qml
 
-script_weather_js.cpp: ../desktop-gadgets-in-uos/script/weather.js \
+script_my_f_js.cpp: ../desktop-gadgets-in-uos/script/my_f.js \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o script_weather_js.cpp ../desktop-gadgets-in-uos/script/weather.js
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o script_my_f_js.cpp ../desktop-gadgets-in-uos/script/my_f.js
 
 compiler_qmlcache_loader_make_all: qmlcache_loader.cpp
 compiler_qmlcache_loader_clean:
@@ -927,6 +931,9 @@ main.o: ../desktop-gadgets-in-uos/main.cpp ../../../Qt5.12.9/5.12.9/gcc_64/inclu
 		../../../Qt5.12.9/5.12.9/gcc_64/include/QtQml/qqmlerror.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../desktop-gadgets-in-uos/main.cpp
 
+timer.o: ../desktop-gadgets-in-uos/timer.cpp ../desktop-gadgets-in-uos/timer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timer.o ../desktop-gadgets-in-uos/timer.cpp
+
 qrc_qml_qmlcache.o: qrc_qml_qmlcache.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml_qmlcache.o qrc_qml_qmlcache.cpp
 
@@ -972,8 +979,8 @@ Panel_qml.o: Panel_qml.cpp
 Memo2_qml.o: Memo2_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Memo2_qml.o Memo2_qml.cpp
 
-script_weather_js.o: script_weather_js.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o script_weather_js.o script_weather_js.cpp
+script_my_f_js.o: script_my_f_js.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o script_my_f_js.o script_my_f_js.cpp
 
 qmlcache_loader.o: qmlcache_loader.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qmlcache_loader.o qmlcache_loader.cpp

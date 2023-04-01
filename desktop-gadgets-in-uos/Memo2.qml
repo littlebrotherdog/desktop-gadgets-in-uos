@@ -10,6 +10,42 @@ Rectangle {
     color: "#FFF5EE"
     radius: 0
 
+    Timer{
+        id:timer
+        interval: 1000
+        repeat:true
+        running:false
+        onTriggered: {
+            s++;
+            if(s<10)
+            {
+                str_s = "0" + s;
+            }else{
+                str_s = s;
+            }
+            if(m<10)
+            {
+                str_m = "0" + m;
+            }else{
+                str_m = m;
+            }
+            if(h<10)
+            {
+                str_h = "0" + h;
+            }else{
+                str_h = h;
+            }
+            if(s>=60){
+                s=0;
+                m++;
+            }
+            if(m>=60){
+                m=0;
+                h++;
+            }
+        }
+    }
+
     Rectangle {
         id: memo_title
         width: parent.width
@@ -44,11 +80,11 @@ Rectangle {
             anchors.margins: 10
             color: "transparent"
             ListModel {
-                id: text_model
+                id: text_mod
             }
 
             Component {
-                id: text_delegate
+                id: text_del
                 Rectangle{
                     id: list_item
                     width: ListView.view.width
@@ -64,12 +100,12 @@ Rectangle {
                         anchors.leftMargin: 10
                         anchors.topMargin: 4
                         font.pointSize: 10
-                        wrapMode: TextEdit.WrapAnywhere
+                        wrapMode: TextEdit.WordWrap
                         text: mText
                     }
 
                     Image {
-                        id: delete_brn
+                        id: delete_btn
                         source: "qrc:/image/delete.svg"
                         width: 18
                         height: 18
@@ -81,15 +117,15 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                console.log("delete")
-                                memo_text_list_temp.splice(index, 1)
 
-                                text_model.clear()
-                                for(var i = 0; i < memo_text_list_temp.length; i++) {
-                                    text_model.append(memo_text_list_temp[i])
+                                memo_my_birth.splice(index, 1)
+
+                                text_mod.clear()
+                                for(var i = 0; i < memo_my_birth.length; i++) {
+                                    text_mod.append(memo_my_birth[i])
                                 }
 
-                                settings.setValue("memo_text_list", memo_text_list_temp)
+
                             }
                         }
                     }
@@ -101,25 +137,33 @@ Rectangle {
                 width: parent.width
                 height: parent.height
                 spacing: 2
-                model: text_model
-                delegate: text_delegate
+                model: text_mod
+                delegate: text_del
                 clip: true
             }
 
             Component.onCompleted: {
-                text_model.clear()
-                for(var i = 0; i < memo_text_list_temp.length; i++) {
-                    text_model.append(memo_text_list_temp[i])
+                text_mod.clear()
+                for(var i = 0; i < memo_my_birth.length; i++) {
+                    text_mod.append(memo_my_birth[i])
                 }
+            }
+
+            Component.onDestruction: {
+                var cnt=0;
+                for(var i = 0; i < command.memo_all_txt.length; i++) {
+                    console.log(command.memo_all_txt[i]);
+                }
+                console.log("yessssssss!")
             }
 
             Connections {
                 target: main_window
                 onMemoDataChanged: {
-                    console.log("data changed")
-                    text_model.clear()
-                    for(var i = 0; i < memo_text_list_temp.length; i++) {
-                        text_model.append(memo_text_list_temp[i])
+
+                    text_mod.clear()
+                    for(var i = 0; i < memo_my_birth.length; i++) {
+                        text_mod.append(memo_my_birth[i])
                     }
                 }
             }
@@ -132,11 +176,14 @@ Rectangle {
             anchors.margins: 10
             radius: 18
             color: "transparent"
+            //wrapMode: TextEdit.WordWrap
+
             ColumnLayout
             {
                 anchors.fill: parent
                 spacing: 10
                 TextField {
+                    wrapMode: TextEdit.WordWrap
                     id: input
                     Layout.preferredHeight: 20
                     Layout.fillWidth: true
@@ -148,10 +195,15 @@ Rectangle {
                     id: list
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    model: text_model
+                    model: text_mod
+                    //wrapMode: TextEdit.WordWrap
+
                     delegate: Text {
+
+                        wrapMode: TextEdit.WordWrap
                         property string origText: modelData
                         text: list.hightlightText(origText)
+
                     }
 
                     function hightlightText(txt)
@@ -177,14 +229,58 @@ Rectangle {
             angle: 0
         }
 
+        RowLayout {
+            id: layout
+            anchors.fill: parent   //填充到父项
+            spacing: 6
+            visible :false
+            Rectangle {
+                color: 'teal'
+                Layout.fillWidth: true   //可拉伸
+                Layout.minimumWidth: 50
+                Layout.preferredWidth: 100
+                Layout.maximumWidth: 300
+                Layout.minimumHeight: 150
+                Text {
+                    anchors.centerIn: parent
+                    text: parent.width + 'x' + parent.height
+                }
+            }
+            Rectangle {
+                color: 'plum'
+                Layout.fillWidth: true
+                Layout.minimumWidth: 100
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: 100
+                Text {
+                    anchors.centerIn: parent
+                    text: parent.width + 'x' + parent.height
+                }
+            }
+        }
+
         states: State {
             name: "back"
-            PropertyChanges { target: rotation; angle: 180 }
+
+            PropertyChanges {
+                target: rotation;
+                angle: 180
+            }
             when: flipable.flipped
         }
 
         transitions: Transition {
             NumberAnimation { target: rotation; property: "angle"; duration: 1 }
+            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad }
+            ColorAnimation { duration: 1000 }
+        }
+
+        Component.onDestruction: {
+            var cnt=0;
+            for(var i = 0; i < command.memo_all_txt.length; i++) {
+                console.log(command.memo_all_txt[i]);
+            }
+            console.log("yessssssss!")
         }
     }
 }

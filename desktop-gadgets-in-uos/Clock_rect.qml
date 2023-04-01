@@ -1,4 +1,7 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
+import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.1
 
 Item {
 
@@ -28,34 +31,29 @@ Item {
             }else{
                 str_s = s;
             }
-
-
             if(m<10)
             {
                 str_m = "0" + m;
             }else{
                 str_m = m;
             }
-
             if(h<10)
             {
                 str_h = "0" + h;
             }else{
                 str_h = h;
             }
-
-
             if(s>=60){
                 s=0;
                 m++;
             }
-
             if(m>=60){
                 m=0;
                 h++;
             }
         }
     }
+
     Rectangle{
         anchors.fill:parent
         color: "transparent"
@@ -63,6 +61,109 @@ Item {
         radius:5
         Text{
             id:txt
+            text:str_h+":"+str_m+":"+str_s
+            font.family:"微软雅黑"
+            color: "#ffffff"
+            font.bold:true
+            font.pointSize: 30
+            anchors.centerIn: parent
+        }
+    }
+
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        height :0
+        width :0
+        opacity:0
+        radius:0
+        Text{
+            id:y
+            text:str_h+":"+str_m+":"+str_s
+            font.family:"微软雅黑"
+            color: "#ffffff"
+            font.bold:true
+            font.pointSize: 30
+            anchors.centerIn: parent
+        }
+    }
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        height :0
+        width :0
+        opacity:0
+        radius:0
+        Text{
+            id:x
+            text:str_h+":"+str_m+":"+str_s
+            font.family:"微软雅黑"
+            color: "#ffffff"
+            font.bold:true
+            font.pointSize: 30
+            anchors.centerIn: parent
+        }
+    }
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        height :0
+        width :0
+        opacity:0
+        radius:0
+        Text{
+            id:xx
+            text:str_h+":"+str_m+":"+str_s
+            font.family:"微软雅黑"
+            color: "#ffffff"
+            font.bold:true
+            font.pointSize: 30
+            anchors.centerIn: parent
+        }
+    }
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        height :0
+        width :0
+        opacity:0
+        radius:0
+        Text{
+            id:xxx
+            text:str_h+":"+str_m+":"+str_s
+            font.family:"微软雅黑"
+            color: "#ffffff"
+            font.bold:true
+            font.pointSize: 30
+            anchors.centerIn: parent
+        }
+    }
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        height :0
+        width :0
+        opacity:0
+        radius:0
+        Text{
+            id:xxxx
+            text:str_h+":"+str_m+":"+str_s
+            font.family:"微软雅黑"
+            color: "#ffffff"
+            font.bold:true
+            font.pointSize: 30
+            anchors.centerIn: parent
+        }
+    }
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        height :0
+        width :0
+        opacity:0
+        radius:0
+        Text{
+            id:xxxxx
             text:str_h+":"+str_m+":"+str_s
             font.family:"微软雅黑"
             color: "#ffffff"

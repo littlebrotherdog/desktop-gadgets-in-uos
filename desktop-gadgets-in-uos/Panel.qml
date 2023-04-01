@@ -8,12 +8,8 @@ Rectangle {
     anchors.fill: parent
     color: "#FFFFFF"
 
-    ScrollView {
-        id: panel_page
-        anchors.topMargin: 0
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 0
+    Rectangle {
+
         anchors.fill: parent
         clip: true
 

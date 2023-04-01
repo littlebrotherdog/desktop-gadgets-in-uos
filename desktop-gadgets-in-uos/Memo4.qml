@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.1
 
 Rectangle {
     id: card_memo4
@@ -8,6 +9,43 @@ Rectangle {
     height: 260
     color: "#FFF5EE"
     radius: 0
+
+    Timer{
+        id:timer
+        interval: 1000
+        repeat:true
+        running:false
+        onTriggered: {
+            s++;
+            if(s<10)
+            {
+                str_s = "0" + s;
+            }else{
+                str_s = s;
+            }
+            if(m<10)
+            {
+                str_m = "0" + m;
+            }else{
+                str_m = m;
+            }
+            if(h<10)
+            {
+                str_h = "0" + h;
+            }else{
+                str_h = h;
+            }
+            if(s>=60){
+                s=0;
+                m++;
+            }
+            if(m>=60){
+                m=0;
+                h++;
+            }
+        }
+    }
+
     Rectangle {
         id: memo_title
         width: parent.width
@@ -78,12 +116,12 @@ Rectangle {
                             anchors.fill: parent
                             onClicked: {
                                 console.log("delete")
-                                memo_text_list_temp.splice(index, 1)
+                                memo_my_birth.splice(index, 1)
                                 text_model.clear()
-                                for(var i = 0; i < memo_text_list_temp.length; i++) {
-                                    text_model.append(memo_text_list_temp[i])
+                                for(var i = 0; i < memo_my_birth; i++) {
+                                    text_model.append(memo_my_birth[i])
                                 }
-                                settings.memo_text_list = memo_text_list_temp
+                                command.memo_all_txt = memo_my_birth
                                 memoDataChanged()
                             }
                         }
@@ -103,8 +141,8 @@ Rectangle {
 
             Component.onCompleted: {
                 text_model.clear()
-                for(var i = 0; i < memo_text_list_temp.length; i++) {
-                    text_model.append(memo_text_list_temp[i])
+                for(var i = 0; i < memo_my_birth.length; i++) {
+                    text_model.append(memo_my_birth[i])
                 }
             }
 
@@ -113,8 +151,8 @@ Rectangle {
                 onMemoDataChanged: {
                     console.log("data changed")
                     text_model.clear()
-                    for(var i = 0; i < memo_text_list_temp.length; i++) {
-                        text_model.append(memo_text_list_temp[i])
+                    for(var i = 0; i < memo_my_birth.length; i++) {
+                        text_model.append(memo_my_birth[i])
                     }
                 }
             }
@@ -155,6 +193,7 @@ Rectangle {
                     anchors.right: parent.right
                     width: parent.width
                     text: qsTr("")
+                    wrapMode: TextEdit.WrapAnywhere
                     font.pointSize: 12
                     anchors.leftMargin: 8
                     anchors.rightMargin: 8
@@ -178,21 +217,56 @@ Rectangle {
         }
 
         transform: Rotation {
-            id: rotation
-            origin.x: flipable.width/2
-            origin.y: flipable.height/2
+            id: rot
+            origin.x: flipable.width >> 1
+            origin.y: flipable.height >> 1
             axis.x: 0; axis.y: 1; axis.z: 0
             angle: 0
         }
 
+        RowLayout {
+            id: layout
+            anchors.fill: parent   //填充到父项
+            spacing: 6
+            visible :false
+            Rectangle {
+                color: 'teal'
+                Layout.fillWidth: true   //可拉伸
+                Layout.minimumWidth: 50
+                Layout.preferredWidth: 100
+                Layout.maximumWidth: 300
+                Layout.minimumHeight: 150
+                Text {
+                    anchors.centerIn: parent
+                    text: parent.width + 'x' + parent.height
+                }
+            }
+            Rectangle {
+                color: 'plum'
+                Layout.fillWidth: true
+                Layout.minimumWidth: 100
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: 100
+                Text {
+                    anchors.centerIn: parent
+                    text: parent.width + 'x' + parent.height
+                }
+            }
+        }
+
         states: State {
             name: "back"
-            PropertyChanges { target: rotation; angle: 180 }
+            PropertyChanges {
+                target: rot;
+                angle: 180
+            }
             when: flipable.flipped
         }
 
         transitions: Transition {
-            NumberAnimation { target: rotation; property: "angle"; duration: 1 }
+            NumberAnimation { target: rot; property: "angle"; duration: 1 }
+            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad }
+            ColorAnimation { duration: 1000 }
         }
 
         Connections {
@@ -200,15 +274,22 @@ Rectangle {
 
             onSetBtnClicked: {
                 if(set_flag === false && text_edit.text !== "") {
-                    console.log("append")
-                    memo_text_list_temp.push({"mText": text_edit.text})
-
-                    text_model.append(memo_text_list_temp[memo_text_list_temp.length - 1])
+                    memo_my_birth.push({"mText": text_edit.text})
+                    text_model.append(memo_my_birth[memo_my_birth.length - 1])
                     text_edit.text = ""
                     memoDataChanged()
-                    settings.memo_text_list = memo_text_list_temp
+                    command.memo_all_txt = memo_my_birth
                 }
+                else command.memo_all_txt = memo_my_birth
             }
+        }
+
+        Component.onDestruction: {
+            var cnt=0;
+            for(var i = 0; i < command.memo_all_txt.length; i++) {
+                console.log(command.memo_all_txt[i]);
+            }
+            console.log("yessssssss!")
         }
     }
 }
