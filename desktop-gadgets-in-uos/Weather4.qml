@@ -88,7 +88,7 @@ Rectangle {
                 color: "transparent"
                 Image {
                     id: weather_icon
-                    height: 16
+                    height: 19
                     fillMode: Image.PreserveAspectFit
                     source: cityWeatherIcon
 
@@ -102,36 +102,36 @@ Rectangle {
 
                     anchors.bottom: description_text.top
                     anchors.top: parent.top
-                    anchors.topMargin: 5
+                    anchors.topMargin: 4
                     anchors.right: parent.right
-                    anchors.rightMargin: 15
+                    anchors.rightMargin: 16
                     visible: true
                 }
 
                 Text {
                 color: "white" // 文字颜色为白色
-                font.pointSize: 10 // 文字大小为10
+                font.pointSize: 11 // 文字大小为11
                 text: qsTr(command.city_name) // 设置文字为城市名称
 
-                id: city_name_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
+                id: city_txt // 给这个 Text 组件设置一个 ID，方便其他地方引用
                 anchors.left: parent.left // 水平左对齐到父组件左边
-                anchors.leftMargin: 15 // 左边距为15个像素
-                y: 10 // 上下居中对齐
+                anchors.leftMargin: 14 // 左边距为14个像素
+                y: 9// 上下居中对齐
                 }
 
                 Text {
-                font.pointSize: 28 // 文字大小为28
+                font.pointSize: 27// 文字大小为27
                 color: "white" // 文字颜色为白色
                 text: qsTr(cityTemperature) // 设置文字为城市温度
 
                 id: temp_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
-                anchors.left: city_name_text.left // 水平左对齐到城市名称的左边
-                y: 16 // 上下居中对齐
+                anchors.left: city_txt.left // 水平左对齐到城市名称的左边
+                y: 17 // 上下居中对齐
                 }
 
                 Text {
                 id: description_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
-                font.pointSize: 10 // 文字大小为10
+                font.pointSize: 11// 文字大小为11
                 color: "white" // 文字颜色为白色
                 text: qsTr(cityDescription) // 设置文字为城市描述
 
@@ -141,7 +141,7 @@ Rectangle {
 
                 Text {
                 id: double_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
-                font.pointSize: 10 // 文字大小为10
+                font.pointSize: 11// 文字大小为11
                 color: "white" // 文字颜色为白色
                 text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity) // 设置文字为气压和相对湿度
 
@@ -210,7 +210,7 @@ Rectangle {
                             Text {
                                 id: time_text
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.leftMargin: 13
+                                anchors.leftMargin: 12
                                 anchors.top: parent.top
 
                                 MouseArea {
@@ -221,20 +221,20 @@ Rectangle {
                                    drag.maximumX: container.width - rect.width
                                 }
 
-                                font.pointSize: 10
+                                font.pointSize: 11
                                 color: "white"
                                 text: qsTr(time)
                             }
 
                             Text {
 
-                                font.pointSize: 10
+                                font.pointSize: 11
                                 color: "white"
                                 text: qsTr(temp)
 
                                 anchors.top: icon.bottom
                                 anchors.left: parent.left
-                                anchors.leftMargin: 13
+                                anchors.leftMargin: 14
 
                             }
                             width: (choice.width - 4 *parent.spacing) / 5
@@ -256,9 +256,9 @@ Rectangle {
                     spacing: 10
                 }
                 color: "transparent"
-                y: 95
+                y: 98
                 width: parent.width
-                height: 48
+                height: 46
             }
 
             Rectangle {
@@ -283,8 +283,8 @@ Rectangle {
                 }
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: 10
-                anchors.rightMargin: 8
+                anchors.leftMargin: 11
+                anchors.rightMargin: 7
                 Row {
 
                     Repeater {
@@ -297,7 +297,7 @@ Rectangle {
                                 id: icon2
                                 anchors.top: time_text2.bottom
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                height: 24
+                                height: 25
 
                                 cache :true
                                 smooth: true
@@ -327,7 +327,7 @@ Rectangle {
 
                                 anchors.top: icon2.bottom
                                 anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                anchors.leftMargin: 14
 
                             }
 
@@ -356,9 +356,9 @@ Rectangle {
                 }
                 color: "transparent"
                 anchors.top: v2.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 11
                 width: parent.width
-                height: 48
+                height: 46
             }
         }
 
@@ -374,7 +374,7 @@ Rectangle {
                 width: 42
 
                 text: qsTr(command.city_name)
-                font.pointSize: 10
+                font.pointSize: 11
                 color: "black"
                 focus: true
 
@@ -396,7 +396,7 @@ Rectangle {
                 id: title_label
                 color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
-                y:80
+                y:81
                 font.pointSize: 18
                 text: qsTr("Please set your city")
             }      

@@ -81,61 +81,58 @@ Rectangle {
         Rectangle {
 
             Image {
-                id: weather_icon
-                height: 16
-                fillMode: Image.PreserveAspectFit
-                source: cityWeatherIcon
+            id: weather_icon //控件的唯一标识符
+            height: 18 //控件的高度
+            fillMode: Image.PreserveAspectFit //图像的填充模式
+            source: cityWeatherIcon //图像文件的路径，从外部变量 cityWeatherIcon 中读取
 
-                MouseArea{
-                    cursorShape: Qt.IBeamCursor
-                    acceptedButtons: Qt.NoButton
-                }
+            MouseArea{ //添加一个鼠标区域
+            cursorShape: Qt.IBeamCursor //设置鼠标形状为I形光标
+            acceptedButtons: Qt.NoButton //禁止鼠标单击
+            }
 
-                anchors.bottom: description_text.top
-                anchors.top: parent.top
-                anchors.topMargin: 5
-                anchors.right: parent.right
-                anchors.rightMargin: 15
-                visible: false
+            anchors.bottom: description_text.top //控件的底部与描述文本控件的顶部对齐
+            anchors.top: parent.top //控件的顶部与父元素的顶部对齐
+            anchors.topMargin: 5 //控件与父元素顶部的边距
+            anchors.right: parent.right //控件的右侧与父元素的右侧对齐
+            anchors.rightMargin: 15 //控件与父元素右侧的边距
+            visible: false //控件不可见
             }
 
             Text {
-                id: city_txt
-                color: "white"
-                font.pointSize: 10
-                text: qsTr(command.city_name)
+            id: city_txt //控件的唯一标识符
+            color: "white" //文字颜色为白色
+            font.pointSize: 11 //字体大小为11
+            text: qsTr(command.city_name) //文本内容从外部变量command.city_name中读取
 
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-                y: 10
-
+            anchors.left: parent.left //控件的左侧与父元素的左侧对齐
+            anchors.leftMargin: 14 //控件与父元素左侧的边距
+            y: 9//控件的y坐标
             }
 
             Text {
-                id: temp_text
-                font.pointSize: 28
-                color: "white"
-                text: qsTr(cityTemperature)
+            id: temp_text //控件的唯一标识符
+            font.pointSize: 28 //字体大小为28
+            color: "white" //文字颜色为白色
+            text: qsTr(cityTemperature) //文本内容从外部变量cityTemperature中读取
 
-                anchors.left: city_txt.left
-                y: 16
-
+            anchors.left: city_txt.left //控件的左侧与城市文本控件的左侧对齐
+            y: 15//控件的y坐标
             }
 
             Text {
-                id: description_text
-                font.pointSize: 10
-                color: "white"
-                text: qsTr(cityDescription)
+            id: description_text //控件的唯一标识符
+            font.pointSize: 11//字体大小为11
+            color: "white" //文字颜色为白色
+            text: qsTr(cityDescription) //文本内容从外部变量cityDescription中读取
 
-                anchors.bottom: new_text.top
-                anchors.right: weather_icon.right
-
+            anchors.bottom: new_text.top //控件的底部与新闻文本控件的顶部对齐
+            anchors.right: weather_icon.right //控件的右侧与天气图标控件的右侧对齐
             }
 
             Text {
                 id: new_text
-                font.pointSize: 10
+                font.pointSize: 11
                 color: "white"
                 text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity)
 
@@ -180,49 +177,70 @@ Rectangle {
                 anchors.leftMargin: 10
                 anchors.rightMargin: 8
                 Row {
-                    spacing: 10
-                    Repeater {
-                        model: weather_model
-                        Rectangle {
-                            width: (row_rect.width - 4 *parent.spacing) / 5
-                            height: row_rect.height
-                            color: "transparent"
+                spacing: 10 // 设置子项之间的间隔为10个像素
 
-                            Text {
-                                id: time_txt
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.top: parent.top
-                                font.pointSize: 10
-                                color: "white"
-                                text: qsTr(time)
-                            }
+                Repeater {
+                model: weather_model // 使用名为weather_model的模型循环创建子项
 
-                            Image {
-                                id: pic
-                                anchors.top: time_txt.bottom
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                height: 16
+                Rectangle {
+                width: (row_rect.width - 4 *parent.spacing) / 5 // 计算子项的宽度，确保5个子项与父项的宽度相等并保持一定的间距
 
-                                cache :true
-                                smooth: true
-                                visible: true
+                height: row_rect.height // 设置子项的高度与父项的高度相等
 
-                                fillMode: Image.PreserveAspectFit
-                                source: weather_icon
-                            }
+                color: "transparent" // 设置子项的背景色为透明
 
-                            DropShadow {
-                                anchors.fill: pic
-                                horizontalOffset: 3
-                                verticalOffset: 3
-                                radius: 5.0
-                                spread :0.1
-                                samples: 30
-                                color: "#80000000"
-                                source: pic
-                            }
+                Text {
+                id: time_txt // 设置子项中的文本控件的ID为time_txt
 
-                            Text {
+                anchors.horizontalCenter: parent.horizontalCenter // 设置文本控件水平居中对齐
+
+                anchors.top: parent.top // 设置文本控件的顶部对齐父项的顶部
+
+                font.pointSize: 11 // 设置文本的字体大小为11像素
+
+                color: "white" // 设置文本颜色为白色
+
+                text: qsTr(time) // 使用qsTr函数翻译字符串，并将其设置为文本控件的文本
+                }
+
+                Image {
+                id: pic // 设置子项中的图像控件的ID为pic
+
+                anchors.top: time_txt.bottom // 设置图像控件的顶部与文本控件的底部对齐
+
+                anchors.horizontalCenter: parent.horizontalCenter // 设置图像控件水平居中对齐
+
+                height: 16 // 设置图像的高度为16像素
+
+                cache :true // 启用图像缓存以提高性能
+
+                smooth: true // 启用平滑缩放以提高图像质量
+
+                visible: true // 设置图像可见
+
+                fillMode: Image.PreserveAspectFit // 设置图像填充模式为保持纵横比适应
+
+                source: weather_icon // 设置图像源为名为weather_icon的属性值
+                }
+
+                DropShadow {
+                anchors.fill: pic // 设置阴影的范围与图像相同
+
+                horizontalOffset: 3 // 设置阴影的水平偏移量为3像素
+
+                verticalOffset: 3 // 设置阴影的垂直偏移量为3像素
+
+                radius: 5.0 // 设置阴影的半径为5像素
+
+                spread :0.1 // 设置阴影的扩散程度为0.1
+
+                samples: 30 // 设置阴影的样本数为30
+
+                color: "#80000000" // 设置阴影的颜色为带有80透明度的黑色
+
+                source: pic // 设置阴影的源为图像控件pic
+                }
+                         Text {
                                 anchors.top: pic.bottom
                                 anchors.left: parent.left
                                 anchors.leftMargin: 13
@@ -256,14 +274,14 @@ Rectangle {
                 color: "white"
 
                 anchors.horizontalCenter: parent.horizontalCenter
-                y:24
-                font.pointSize: 14
+                y:20
+                font.pointSize: 16
                 text: qsTr("Please set your city")
             }
 
             TextField{
                 id: text_new
-                height: 27
+                height: 20
                 width: 42
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter:parent.verticalCenter

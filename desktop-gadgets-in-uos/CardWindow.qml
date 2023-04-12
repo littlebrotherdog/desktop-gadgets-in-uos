@@ -127,28 +127,6 @@ Window {
     acceptedButtons: Qt.LeftButton | Qt.RightButton // 接受左右鼠标键
 
     property point clickPos: "0,0" // 点击的位置，初始值为(0,0)
-    onClicked: { // 点击事件
-    if (mouse.button === Qt.RightButton) { // 右键点击事件
-    if(main_window.hide_flag === false) main_window.hideWindow() // 如果窗口未隐藏，则隐藏窗口
-    else main_window.showWindow() // 否则显示窗口
-    }
-
-    if(mouseX === Qt.application){ // 鼠标的X坐标是否在应用程序内
-    clickPos++ // 点击位置+1
-    }
-
-    }
-
-    onDoubleClicked: { // 双击事件
-    if(mouseY === Qt.application){ // 鼠标的Y坐标是否在应用程序内
-    clickPos++ // 点击位置+1
-    }
-
-    if(mouse.button === Qt.LeftButton) { // 左键双击事件
-    all_button.visible = (all_button.visible === false) ? true : false // 如果all_button不可见，显示，否则隐藏
-    }
-    }
-
 
     onPressed: { // 按下事件
     if(mouseY === Qt.black){ // 鼠标的Y坐标是否在黑色背景中
@@ -158,6 +136,16 @@ Window {
     if (mouse.button === Qt.LeftButton) { // 左键按下事件
     clickPos = Qt.point(mouse.x,mouse.y) // 设置点击位置为鼠标的坐标
     move_flag = true // 移动标志设置为true
+    }
+    }
+
+    onDoubleClicked: { // 双击事件
+    if(mouseY === Qt.application){ // 鼠标的Y坐标是否在应用程序内
+    clickPos++ // 点击位置+1
+    }
+
+    if(mouse.button === Qt.LeftButton) { // 左键双击事件
+    all_button.visible = (all_button.visible === false) ? true : false // 如果all_button不可见，显示，否则隐藏
     }
     }
 
@@ -180,6 +168,18 @@ Window {
 
     move_flag = false // 移动标志设置为false
     }
+
+    onClicked: { // 点击事件
+    if (mouse.button === Qt.RightButton) { // 右键点击事件
+    if(main_window.hide_flag === false) main_window.hideWindow() // 如果窗口未隐藏，则隐藏窗口
+    else main_window.showWindow() // 否则显示窗口
+    }
+
+    if(mouseX === Qt.application){ // 鼠标的X坐标是否在应用程序内
+    clickPos++ // 点击位置+1
+    }
+    }
+
     }
 
 
@@ -199,90 +199,6 @@ Window {
             anchors.top: parent.top
             color: "transparent"
             visible: false
-
-            Rectangle {
-                id: zoom_in_btn
-                width: 16
-                height: 16
-
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                color: "transparent"
-
-                Image {
-                    source: "image/zoom-in.svg"
-                    anchors.fill: parent
-                    anchors.margins: 0
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    cache: true
-                    smooth: true
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    onClicked: {
-                        //card_window.change_size(false)
-                        card_window.change_size(true)
-                    }
-                }
-            }
-
-
-            Rectangle {
-                id: zoom_out_btn
-                width: 16
-                height: 16
-
-                anchors.right: zoom_in_btn.left
-                anchors.bottom: parent.bottom
-                anchors.rightMargin: 5
-                color: "transparent"
-                Image {
-                    source: "image/zoom-out.svg"
-                    anchors.fill: parent
-                    anchors.margins: 0
-                    cache: true
-                    smooth: true
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        //card_window.change_size(true)
-                        card_window.change_size(false)
-                    }
-                }
-            }
-
-
-            Rectangle {
-                id: setting_btn
-                width: 16
-                height: 16
-
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                color: "transparent"
-                Image {
-                    source: "image/refresh.svg"
-                    anchors.fill: parent
-                    anchors.margins: 0
-                    cache: true
-                    smooth: true
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        set_flag = (set_flag === true) ? false : true
-                        setBtnClicked()
-                        cache: true
-                        smooth: true
-                    }
-                }
-            }
-
 
             Rectangle {
                 id: close_btn
@@ -325,6 +241,93 @@ Window {
                         console.log("cout no")
                     }
                 }
+            }
+
+            Rectangle {
+            id: zoom_in_btn //控件的唯一标识符
+            width: 16 //控件的宽度
+            height: 16 //控件的高度
+
+            anchors.right: parent.right //控件相对于父元素的右边缘对齐
+            anchors.bottom: parent.bottom //控件相对于父元素的底边缘对齐
+            color: "transparent" //控件的背景颜色
+
+            Image { //添加一个图像
+            source: "image/zoom-in.svg" //图像文件的路径
+            anchors.fill: parent //图像相对于父元素填充
+            anchors.margins: 0 //图像的边距
+            anchors.right: parent.right //图像相对于父元素的右边缘对齐
+            anchors.top: parent.top //图像相对于父元素的顶边缘对齐
+            cache: true //启用图像缓存
+            smooth: true //图像平滑处理
+            }
+
+            MouseArea { //添加一个鼠标区域
+            anchors.fill: parent //鼠标区域相对于父元素填充
+            anchors.right: parent.right //鼠标区域相对于父元素的右边缘对齐
+            anchors.top: parent.top //鼠标区域相对于父元素的顶边缘对齐
+            onClicked: { //当鼠标在区域内单击时触发
+            //card_window.change_size(false)
+            card_window.change_size(true) //调用函数改变卡片窗口的大小
+            }
+            }
+            }
+
+
+            Rectangle {
+            id: zoom_out_btn //控件的唯一标识符
+            width: 16 //控件的宽度
+            height: 16 //控件的高度
+
+            anchors.right: zoom_in_btn.left //控件相对于zoom_in_btn控件的左边缘对齐
+            anchors.bottom: parent.bottom //控件相对于父元素的底边缘对齐
+            anchors.rightMargin: 5 //控件与父元素的右边距为5个像素
+            color: "transparent" //控件的背景颜色
+
+            Image { //添加一个图像
+            source: "image/zoom-out.svg" //图像文件的路径
+            anchors.fill: parent //图像相对于父元素填充
+            anchors.margins: 0 //图像的边距
+            cache: true //启用图像缓存
+            smooth: true //图像平滑处理
+            }
+
+            MouseArea { //添加一个鼠标区域
+            anchors.fill: parent //鼠标区域相对于父元素填充
+            onClicked: { //当鼠标在区域内单击时触发
+            //card_window.change_size(true)
+            card_window.change_size(false) //调用函数缩小卡片窗口的大小
+            }
+            }
+            }
+
+
+            Rectangle {
+            id: setting_btn //控件的唯一标识符
+            width: 16 //控件的宽度
+            height: 16 //控件的高度
+
+            anchors.left: parent.left //控件相对于父元素的左边缘对齐
+            anchors.bottom: parent.bottom //控件相对于父元素的底边缘对齐
+            color: "transparent" //控件的背景颜色
+
+            Image { //添加一个图像
+            source: "image/refresh.svg" //图像文件的路径
+            anchors.fill: parent //图像相对于父元素填充
+            anchors.margins: 0 //图像的边距
+            cache: true //启用图像缓存
+            smooth: true //图像平滑处理
+            }
+
+            MouseArea { //添加一个鼠标区域
+            anchors.fill: parent //鼠标区域相对于父元素填充
+            onClicked: { //当鼠标在区域内单击时触发
+            set_flag = (set_flag === true) ? false : true //将set_flag变量的值取反
+            setBtnClicked() //调用函数来执行设置按钮的点击事件
+            cache: true //启用缓存
+            smooth: true //启用平滑处理
+            }
+            }
             }
         }
     }
