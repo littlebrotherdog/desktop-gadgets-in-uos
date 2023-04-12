@@ -6,11 +6,7 @@ import "script/my_f.js" as Weather
 
 Rectangle {
     id: card_w1
-    width: 120
-    height: 120
-    radius: 0
-    border.color: "#afb0b2"
-    border.width: 0
+
 
     Timer{
         id:timer
@@ -72,8 +68,15 @@ Rectangle {
 
     Flipable {
         id: flipable
-        anchors.fill: parent
-        property bool flipped: set_flag
+
+        states: State {
+            name: "back"
+            PropertyChanges {
+                target: rot;
+                angle: 180
+            }
+            when: flipable.flipped
+        }
 
 
         front:
@@ -81,70 +84,84 @@ Rectangle {
         Rectangle {
             anchors.fill: parent
             color: "transparent"
-            Text {
-                id: city_txt
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-                y: 10
-                color: "white"
-
-                //cache :true
-                smooth: true
-
-                font.pointSize: 10
-                text: qsTr(command.city_name)
-            }
-
-            Text {
-                id: temp_text
-                anchors.left: city_txt.left
-                y: 16
-                font.pointSize: 28
-                color: "white"
-                text: qsTr(cityTemperature)
-            }
-
             Image {
                 id: weather_icon
+
+                anchors.left: temp_text.left
+                cache :true
+                smooth: true
+                visible: true
 
                 height: 16
                 fillMode: Image.PreserveAspectFit
                 source: cityWeatherIcon
                 y: 68
 
-                anchors.left: temp_text.left
-                cache :true
+
+            }
+
+            Text {
+                id: city_txt
                 smooth: true
-                visible: true
+
+                font.pointSize: 10
+                text: qsTr(command.city_name)
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+                y: 10
+                color: "white"
+
+                //cache :true
+
+            }
+
+            Text {
+                id: temp_text
+                font.pointSize: 28
+                color: "white"
+                text: qsTr(cityTemperature)
+
+                anchors.left: city_txt.left
+                y: 16
+
+            }
+
+            Text {
+                id: description_txt
+                font.pointSize: 10
+                color: "white"
+                text: qsTr(cityDescription)
+
+                y: 85
+                anchors.left: weather_icon.left
+
+            }
+
+            Text {
+                id:uu_txt
+                color: "white"
+                text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity)
+
+                y: 94
+                anchors.left: description_txt.left
+                font.pointSize: 10
+
             }
 
             DropShadow {
-                anchors.fill: weather_icon
-                horizontalOffset: 3
-                verticalOffset: 3
                 spread : 0.1
                 radius: 5
                 samples: 30
                 color: "#80000000"
                 source: weather_icon
+
+                anchors.fill: weather_icon
+                horizontalOffset: 3
+                verticalOffset: 3
+
             }
 
-            Text {
-                id: description_txt
-                y: 85
-                anchors.left: weather_icon.left
-                font.pointSize: 10
-                color: "white"
-                text: qsTr(cityDescription)
-            }
-
-            Text {
-                y: 94
-                anchors.left: description_txt.left
-                font.pointSize: 10
-                color: "white"
-                text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity)
-            }
         }
 
         back:
@@ -220,14 +237,8 @@ Rectangle {
             }
         }
 
-        states: State {
-            name: "back"
-            PropertyChanges {
-                target: rot;
-                angle: 180
-            }
-            when: flipable.flipped
-        }
+        anchors.fill: parent
+        property bool flipped: set_flag
 
         Text {
             visible: false
@@ -243,14 +254,16 @@ Rectangle {
         }
 
         Timer {
-            interval: 1000
-            repeat: true
-            running: true
-            triggeredOnStart: true
             onTriggered: {
                 Weather.parse_JS_1()
                 Weather.parse_JS_5()
             }
+
+            interval: 1000
+            repeat: true
+            running: true
+            triggeredOnStart: true
+
         }
 
         Connections {
@@ -270,5 +283,12 @@ Rectangle {
             }
             console.log("yessssssss!")
         }
+
     }
+
+    width: 120
+    height: 120
+    radius: 0
+    border.color: "#afb0b2"
+    border.width: 0
 }

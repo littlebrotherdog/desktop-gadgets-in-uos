@@ -45,26 +45,13 @@ Rectangle {
             }
         }
     }
-    Rectangle {
-        id: memo_title
-        width: parent.width
-        height: 26
-        color: "#D2691E"
-        Label {
-            anchors.verticalCenter: parent.verticalCenter
-            x:5
-            color: "white"
-            font.pointSize: 15
-            text: qsTr("memo")
-        }
-    }
+
 
     Rectangle {
         id: list_rec
         width: parent.width
         height: parent.height - memo_title.height
-        anchors.top: memo_title.bottom
-        anchors.bottom: parent.bottom
+
         color: "transparent"
 
         Rectangle {
@@ -72,6 +59,17 @@ Rectangle {
             anchors.fill: parent
             anchors.margins: 6
             color: "transparent"
+
+            Connections {
+                target: main_window
+                onMemoDataChanged: {
+                    //onClicked: foo(...)
+                    text_mod.clear()
+                    for(var i = 0; i < memo_my_birth.length; i++) {
+                        text_mod.append(memo_my_birth[i])
+                    }
+                }
+            }
 
             ListModel {
                 //cache :true
@@ -95,10 +93,12 @@ Rectangle {
                         id: txt
                         width: parent.width - 18
                         height: parent.height
+
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.topMargin: 4
                         anchors.leftMargin: 10
+
                         font.pointSize: 8
                         wrapMode: TextEdit.WordWrap
                         text: mText
@@ -118,10 +118,11 @@ Rectangle {
                 //clipChanged: 0
             }
 
+            // 过渡效果，包含旋转、平移和颜色动画
             transitions: Transition {
-                NumberAnimation { target: rotation; property: "angle"; duration: 1 }
-                NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad }
-                ColorAnimation { duration: 1000 }
+            NumberAnimation { target: rotation; property: "angle"; duration: 1 } // 旋转动画
+            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad } // 平移动画
+            ColorAnimation { duration: 1000 } // 颜色动画
             }
 
             Component.onCompleted: {
@@ -131,24 +132,30 @@ Rectangle {
                 }
             }
 
-            Connections {
-                target: main_window
-                onMemoDataChanged: {
-                    //onClicked: foo(...)
-                    text_mod.clear()
-                    for(var i = 0; i < memo_my_birth.length; i++) {
-                        text_mod.append(memo_my_birth[i])
-                    }
-                }
-            }
-
             Component.onDestruction: {
-                var cnt=0;
-                for(var i = 0; i < command.memo_all_txt.length; i++) {
-                    console.log(command.memo_all_txt[i]);
-                }
-                console.log("yessssssss!")
+            var cnt=0; // 计数器初始化
+            for(var i = 0; i < command.memo_all_txt.length; i++) { // 循环遍历文本并打印
+            console.log(command.memo_all_txt[i]);
+            }
+            console.log("yessssssss!") // 记录销毁次数
             }
         }
+
+        anchors.top: memo_title.bottom
+        anchors.bottom: parent.bottom
+    }
+
+    Rectangle {
+    id: memo_title
+    width: parent.width
+    height: 26
+    color: "#D2691E" // 橙色
+    Label {
+    anchors.verticalCenter: parent.verticalCenter // 标签垂直居中
+    x:5 // 水平位置
+    color: "white" // 字体颜色
+    font.pointSize: 15 // 字体大小
+    text: qsTr("memo") // 标签文本
+    }
     }
 }

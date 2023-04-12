@@ -5,8 +5,6 @@ import QtQuick.Controls 2.0
 
 Rectangle {
     id: card_t2
-    width: 240
-    height: 120
 
     Timer{
         id:timer
@@ -103,7 +101,7 @@ Rectangle {
              }
          }*/
         onTriggered: {
-            var date = Qt.formatDateTime(new Date(), qsTr("h:m"))
+            var date = Qt.formatDateTime(new Date(), qsTr("hh:mm"))
             t_label1.text = date
             date = Qt.formatDateTime(new Date(), qsTr("yyyy年M月d日"))
             t_label2.text = date
@@ -113,47 +111,120 @@ Rectangle {
     }
 
     Clock_rect{
-            id:clock
-            y:18
-            anchors.horizontalCenter: parent.horizontalCenter
+    // 创建Clock_rect组件
+
+    id:clock
+    // 给Clock_rect组件添加ID
+
+    y:18
+    // 设置Clock_rect组件的垂直位置
+
+    anchors.horizontalCenter: parent.horizontalCenter
+    // 设置Clock_rect组件的水平位置为父组件的水平位置
+
     }
 
     Rectangle{
-        color: "transparent"
-        anchors.fill: parent
-        Button{
-                id:btn
-                text:"开 始"
-                anchors.horizontalCenterOffset: 0
-                highlighted: false
-                autoRepeat: true
-                flat: true
-                visible: true
-                clip: true
-                font.pointSize: 15
-                font.bold:true
+    // 创建矩形组件
 
-                y:90
-                height :25
-                width: 48
-                anchors.horizontalCenter: parent.horizontalCenter
-                onClicked: {
-                     if(text=="开 始"){
-                        clock.timer.start()
-                        text="暂 停"
-                    }else{
-                        clock.timer.stop()
-                        text="开 始"
-                    }
-                }
-        }
+    color: "transparent"
+    // 设置矩形组件的颜色为透明
+
+    anchors.fill: parent
+    // 设置矩形组件填充父组件
+
+    Button{
+    // 创建按钮组件
+
+    id:btn
+    // 给按钮组件添加ID
+
+    text:"开 始"
+    // 设置按钮文本
+
+    anchors.horizontalCenterOffset: 0
+    // 设置按钮的水平偏移量为0
+
+    highlighted: false
+    // 取消按钮高亮显示
+
+    autoRepeat: true
+    // 启用按钮自动重复
+
+    flat: true
+    // 设置按钮为扁平样式
+
+    visible: true
+    // 设置按钮可见
+
+    clip: true
+    // 启用按钮裁剪
+
+    font.pointSize: 15
+    // 设置按钮文本的字体大小
+
+    font.bold:true
+    // 设置按钮文本的粗细
+
+    y:90
+    // 设置按钮的垂直位置
+
+    height :25
+    // 设置按钮的高度
+
+    width: 48
+    // 设置按钮的宽度
+
+    anchors.horizontalCenter: parent.horizontalCenter
+    // 设置按钮的水平位置为父组件的水平位置
+
+    onClicked: {
+    // 当按钮被点击时执行以下代码
+
+    if(text=="开 始"){
+    // 如果按钮文本为“开 始”
+
+    clock.timer.start()
+    // 开始计时器
+
+    text="暂 停"
+    // 修改按钮文本为“暂 停”
+    }else{
+    // 如果按钮文本为“暂 停”
+
+    clock.timer.stop()
+    // 停止计时器
+
+    text="开 始"
+    // 修改按钮文本为“开 始”
+    }
+    }
+    }
     }
 
     Component.onDestruction: {
-        var cnt=0;
-        for(var i = 0; i < command.memo_all_txt.length; i++) {
-            console.log(command.memo_all_txt[i]);
-        }
-        console.log("yessssssss!")
+    // 当组件被销毁时执行以下代码
+
+    var cnt=0;
+    // 定义计数器cnt并初始化为0
+
+    for(var i = 0; i < command.memo_all_txt.length; i++) {
+    // 遍历command.memo_all_txt数组
+
+    console.log(command.memo_all_txt[i]);
+    // 输出数组元素
+
+    cnt++;
+    // 计数器加1
     }
+
+    console.log("yessssssss!")
+    // 输出字符串“yessssssss!”到控制台
+    }
+
+    width: 240
+    // 设置组件的宽度
+
+    height: 120
+    // 设置组件的高度
 }

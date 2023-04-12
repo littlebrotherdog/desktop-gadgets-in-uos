@@ -36,62 +36,62 @@ Window {
         }
     }
 
-    flags: Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowStaysOnTopHint
+    flags: Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowStaysOnTopHint // 设置窗口标志位
 
-    property string qml_source: ""
-    property bool temp
-    property bool max
-    property bool min
-    property bool maxn
-    property bool maxnm
-    property string card_size: qml_source.replace(/[^0-9]/ig,"")
-    property bool set_flag: false
-    property bool move_flag
-    signal setBtnClicked()
-    signal onSetBtnClicked
-    signal onSet_flagChanged
+    property string qml_source: "" // QML文件路径
+    property bool temp // 标记是否存在
+    property bool max // 标记是否最大化
+    property bool min // 标记是否最小化
+    property bool maxn // 标记是否最大化
+    property bool maxnm // 标记是否最大化
+    property string card_size: qml_source.replace(/[^0-9]/ig,"") // 获取QML文件中的数字
+    property bool set_flag: false // 设置标记位
+    property bool move_flag // 移动标记位
+    signal setBtnClicked() // 自定义信号
+    signal onSetBtnClicked // 自定义信号
+    signal onSet_flagChanged // 自定义信号
 
-    property string xx: "xxx"
-    property string xxx: "xxx"
-    property string xxxx: "xxx"
-    property string xxxxx: "xxx"
-    property string xxxxxx: "xxx"
-    property string cityTemperature: "xxx"
-    property string pressure :"xxx"
-    property string humidity :"xxx"
-    property string cityDescription: "xxx"
-    property url cityWeatherIcon: ""
+    property string xx: "xxx" // 字符串属性
+    property string xxx: "xxx" // 字符串属性
+    property string xxxx: "xxx" // 字符串属性
+    property string xxxxx: "xxx" // 字符串属性
+    property string xxxxxx: "xxx" // 字符串属性
+    property string cityTemperature: "xxx" // 城市温度
+    property string pressure :"xxx" // 城市气压
+    property string humidity :"xxx" // 城市湿度
+    property string cityDescription: "xxx" // 城市描述
+    property url cityWeatherIcon: "" // 城市天气图标
 
-    ListModel { id: weather_model }
-    ListModel { id: weather_model2 }
-    ListModel { id: weather_model3 }
-    ListModel { id: weather_model4 }
-    ListModel { id: weather_model5 }
+    ListModel { id: weather_model } // 列表模型
+    ListModel { id: weather_model2 } // 列表模型
+    ListModel { id: weather_model3 } // 列表模型
+    ListModel { id: weather_model4 } // 列表模型
+    ListModel { id: weather_model5 } // 列表模型
 
-    function change_Model1(num){
-        if(cityWeatherIcon === num){
-            cityDescription.concat(num)
-            cityDescription.replace(num)
-        }
+    function change_Model1(num){ // 修改模型1
+    if(cityWeatherIcon === num){
+    cityDescription.concat(num) // 连接字符串
+    cityDescription.replace(num) // 替换字符串
+    }
     }
 
-    function change_Model2(num){
-        if(cityWeatherIcon === num+1){
-            cityDescription.concat(num+1)
-            cityDescription.replace(num+1)
-        }
+    function change_Model2(num){ // 修改模型2
+    if(cityWeatherIcon === num+1){
+    cityDescription.concat(num+1) // 连接字符串
+    cityDescription.replace(num+1) // 替换字符串
+    }
     }
 
-    function insert_Model(cnt, weather_data) {
-        if(weather_model.count >= cnt+ 1)
-            weather_model.remove(cnt)
-        weather_model.insert(cnt, weather_data)
+    function insert_Model(cnt, weather_data) { // 插入数据到模型1
+    if(weather_model.count >= cnt+ 1)
+    weather_model.remove(cnt)
+    weather_model.insert(cnt, weather_data)
     }
 
-    function insert_Model2(cnt, weather_data) {
-        if(weather_model2.count >= cnt+ 1)
-            weather_model2.remove(cnt)
-        weather_model2.insert(cnt, weather_data)
+    function insert_Model2(cnt, weather_data) { // 插入数据到模型2
+    if(weather_model2.count >= cnt+ 1)
+    weather_model2.remove(cnt)
+    weather_model2.insert(cnt, weather_data)
     }
 
     Rectangle {
@@ -121,78 +121,76 @@ Window {
     }
 
     Item {
-        anchors.fill: parent
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
+    anchors.fill: parent // 在父组件中填充
+    MouseArea { // 鼠标区域
+    anchors.fill: parent // 在父组件中填充
+    acceptedButtons: Qt.LeftButton | Qt.RightButton // 接受左右鼠标键
 
-            property point clickPos: "0,0"
-            onClicked: {
-                if (mouse.button === Qt.RightButton) {
-                    if(main_window.hide_flag === false) main_window.hideWindow()
-                    else  main_window.showWindow()
-                }
+    property point clickPos: "0,0" // 点击的位置，初始值为(0,0)
+    onClicked: { // 点击事件
+    if (mouse.button === Qt.RightButton) { // 右键点击事件
+    if(main_window.hide_flag === false) main_window.hideWindow() // 如果窗口未隐藏，则隐藏窗口
+    else main_window.showWindow() // 否则显示窗口
+    }
 
-                if(mouseX === Qt.application){
-                    clickPos++
-                }
+    if(mouseX === Qt.application){ // 鼠标的X坐标是否在应用程序内
+    clickPos++ // 点击位置+1
+    }
 
-            }
+    }
 
-            onDoubleClicked: {
-                if(mouseY === Qt.application){
-                    clickPos++
-                }
+    onDoubleClicked: { // 双击事件
+    if(mouseY === Qt.application){ // 鼠标的Y坐标是否在应用程序内
+    clickPos++ // 点击位置+1
+    }
 
-                if(mouse.button === Qt.LeftButton) {
-                    all_button.visible = (all_button.visible === false) ? true : false
-                }
-            }
-
-
-            onPressed: {
-                if(mouseY === Qt.black){
-                    clickPos++
-                }
-
-                if (mouse.button === Qt.LeftButton) {
-                    clickPos = Qt.point(mouse.x,mouse.y)
-                    move_flag = true
-                }
-            }
-
-            onPositionChanged: {
-                if(mouse === Qt.application){
-                    clickPos++
-                }
-
-                if(move_flag === true) {
-                    var u = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-                    card_window.setX(card_window.x+u.x)
-                    card_window.setY(card_window.y+u.y)
-                }
-            }
-
-            onReleased: {
-                if(MouseArea === containsMouse){
-                    clickPos++
-                }
-
-                move_flag = false
-            }
-        }
+    if(mouse.button === Qt.LeftButton) { // 左键双击事件
+    all_button.visible = (all_button.visible === false) ? true : false // 如果all_button不可见，显示，否则隐藏
+    }
+    }
 
 
-        Loader {
-            //cache: true
-            smooth: true
-            anchors.fill: parent
-            source: qml_source
-            sourceComponent: childrenRect
-            //CheckBox:0
-        }
+    onPressed: { // 按下事件
+    if(mouseY === Qt.black){ // 鼠标的Y坐标是否在黑色背景中
+    clickPos++ // 点击位置+1
+    }
+
+    if (mouse.button === Qt.LeftButton) { // 左键按下事件
+    clickPos = Qt.point(mouse.x,mouse.y) // 设置点击位置为鼠标的坐标
+    move_flag = true // 移动标志设置为true
+    }
+    }
+
+    onPositionChanged: { // 鼠标位置改变事件
+    if(mouse === Qt.application){ // 鼠标是否在应用程序内
+    clickPos++ // 点击位置+1
+    }
+
+    if(move_flag === true) { // 如果移动标志为true
+    var u = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y) // 计算移动距离
+    card_window.setX(card_window.x+u.x) // 设置card_window的X坐标
+    card_window.setY(card_window.y+u.y) // 设置card_window的Y坐标
+    }
+    }
+
+    onReleased: { // 鼠标松开事件
+    if(MouseArea === containsMouse){ // 如果鼠标在区域内
+    clickPos++ // 点击位置+1
+    }
+
+    move_flag = false // 移动标志设置为false
+    }
+    }
 
 
+    Loader {
+    //cache: true
+    smooth: true // 平滑过渡
+    anchors.fill: parent // 在父组件中填充
+    source: qml_source // 加载qml_source中的内容
+    sourceComponent: childrenRect // 加载子组件的大小
+
+}
         Rectangle {
             id: all_button
             anchors.fill: parent
@@ -332,70 +330,47 @@ Window {
     }
 
     function change_size(en_big) {
-        var flag,um
+        // 声明变量
+        var flag, um
         var size = 1;
-        flag= qml_source.charAt(0);
-        um=qml_source.indexOf(3.14);
-        card_size = qml_source.replace(/[^0-9]/ig,"");
-        if(en_big === true) {
-            if(card_size === "1") {
-                size = 2;
-                card_window.width = 240;
-                card_window.height = 120;
-            }
-            else if(card_size === "2"){
-                size = 4;
-                card_window.width = 240;
-                card_window.height = 240;
-            }
-            else{
-                size = 4;
-            }
+
+        // 解析 qml_source 字符串，以确定卡片的当前大小
+        flag = qml_source.charAt(0); // 获取 qml_source 的第一个字符
+        um = qml_source.indexOf(3.14); // 获取 qml_source 中第一个出现的 3.14 的下标
+        card_size = qml_source.replace(/[^0-9]/ig, ""); // 从 qml_source 中提取数字，得到卡片的当前大小
+
+        // 根据 en_big 参数设置新的卡片大小
+        if (en_big === true) { // 如果 en_big 为 true，则增大卡片
+        if (card_size === "1") { // 如果当前大小为 1，则将大小设置为 2，宽度和高度都设置为 240
+        size = 2;
+        card_window.width = 240;
+        card_window.height = 120;
+        } else if (card_size === "2") { // 如果当前大小为 2，则将大小设置为 4，宽度和高度都设置为 240
+        size = 4;
+        card_window.width = 240;
+        card_window.height = 240;
+        } else { // 如果当前大小为其他值，则将大小设置为 4
+        size = 4;
         }
-        else {
-            if(card_size === "1"){
-                size = 1;
-            }
-            else if(card_size === "2"){
-                size = 1;
-                card_window.width = 120;
-                card_window.height = 120;
-            }
-            else{
-                size = 2;
-                card_window.width = 240;
-                card_window.height = 120;
-            }
+        } else { // 如果 en_big 不为 true，则缩小卡片
+        if (card_size === "1") { // 如果当前大小为 1，则将大小设置为 1
+        size = 1;
+        } else if (card_size === "2") { // 如果当前大小为 2，则将大小设置为 1，宽度和高度都设置为 120
+        size = 1;
+        card_window.width = 120;
+        card_window.height = 120;
+        } else { // 如果当前大小为其他值，则将大小设置为 2，宽度设置为 240，高度设置为 120
+        size = 2;
+        card_window.width = 240;
+        card_window.height = 120;
         }
+        }
+
+        // 更新 qml_source 字符串中的卡片大小信息
         qml_source = qml_source.replace(/[0-9]/, size);
+
+        // 设置标志位为 false
         set_flag = false;
-    }
+        }
+
 }
-/*
-//返回最近七天的日期
-    function getday2() {
-        var days = [];
-        var date = new Date();
-        for(var i=0; i<=144;i+=24){    //144是前六天的小时数
-            var dateItem=new Date(date.getTime() - i * 60 * 60 * 1000);  //使用当天时间戳减去以前的时间毫秒（小时*分*秒*毫秒）
-            var y = dateItem.getFullYear();  //获取年份
-            var m = dateItem.getMonth() + 1;  //获取月份js月份从0开始，需要+1
-            var d= dateItem.getDate();  //获取日期
-            m = addDate0(m);  //给为单数的月份补零
-            d = addDate0(d);  //给为单数的日期补零
-            var valueItem= y + '-' + m + '-' + d;  //组合
-            days.push(valueItem);  //添加至数组
-        }
-        console.log('最近七天日期：',days);
-
-        return days;
-    }
-
-    //给日期加0
-    function addDate0(time) {
-        if (time.toString().length == 1) {
-            time = '0' + time.toString();
-        }
-        return time;
-    }
-*/

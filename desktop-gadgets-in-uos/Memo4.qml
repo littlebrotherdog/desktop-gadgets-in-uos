@@ -46,87 +46,66 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        id: memo_title
-        width: parent.width
-        height: 26
-        color: "#D2691E"
-        Label {
-            anchors.verticalCenter: parent.verticalCenter
-            x:5
-            color: "white"
-            font.pointSize: 15
-            text: qsTr("memo")
-        }
-    }
-
     Flipable {
         id: flipable
-        width: parent.width
-        height: parent.height - memo_title.height
-        anchors.top: memo_title.bottom
-        property bool flipped: set_flag
 
         front:
 
         Rectangle {
-            id: listview_rect
-            anchors.fill: parent
-            anchors.margins: 10
-            radius: 18
-            color: "transparent"
+            id: listview_rect // 设置组件的ID
 
-            ListModel {
-                id: text_model
+            Component { // 声明一个组件
+            id: text_delegate // 设置组件的ID
+
+            Rectangle { // 声明一个矩形
+            id: list_item // 设置矩形的ID
+
+            Text { // 声明一个文本框
+            id: text1 // 设置文本框的ID
+
+            // 设置文本框的宽度和上方的锚点
+            width: parent.width - 40
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 10
+            anchors.topMargin: 4
+
+            wrapMode: TextEdit.WrapAnywhere // 设置文本框的自动换行模式
+            text: mText // 绑定文本框的文本内容为变量mText
+            font.pointSize: 10 // 设置字体大小
             }
 
-            Component {
-                id: text_delegate
+            Image { // 声明一个图片
+            id: delete_brn // 设置图片的ID
+            source: "qrc:/image/delete.svg" // 设置图片的资源路径
 
-                Rectangle{
-                    id: list_item
-                    width: ListView.view.width
-                    height: 63
-                    border.color: "#FF7F50"
-                    radius: 8
+            MouseArea { // 声明一个鼠标区域
+            anchors.fill: parent // 鼠标区域的大小与图片相同
+            onClicked: { // 设置鼠标单击事件
+            console.log("delete") // 打印调试信息
+            memo_my_birth.splice(index, 1) // 从数组中删除当前项
+            text_model.clear() // 清空文本模型
+            for(var i = 0; i < memo_my_birth; i++) { // 遍历数组并添加到文本模型中
+            text_model.append(memo_my_birth[i])
+            }
+            command.memo_all_txt = memo_my_birth // 更新数据
+            memoDataChanged() // 触发数据更新事件
+            }
+            }
 
-                    Text {
-                        id: text1
-                        width: parent.width - 40
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        anchors.leftMargin: 10
-                        anchors.topMargin: 4
-                        wrapMode: TextEdit.WrapAnywhere
-                        text: mText
-                        font.pointSize: 10
-                    }
+            width: 18 // 设置图片的宽度和高度
+            height: 18
+            anchors.top: parent.top // 设置图片的上方锚点和距离
+            anchors.topMargin: 5
+            anchors.right: parent.right // 设置图片的右方锚点和距离
+            anchors.rightMargin: 5
+            }
 
-                    Image {
-                        id: delete_brn
-                        source: "qrc:/image/delete.svg"
-                        width: 18
-                        height: 18
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
-                        anchors.right: parent.right
-                        anchors.rightMargin: 5
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                console.log("delete")
-                                memo_my_birth.splice(index, 1)
-                                text_model.clear()
-                                for(var i = 0; i < memo_my_birth; i++) {
-                                    text_model.append(memo_my_birth[i])
-                                }
-                                command.memo_all_txt = memo_my_birth
-                                memoDataChanged()
-                            }
-                        }
-                    }
-                }
+            width: ListView.view.width // 设置矩形的宽度与ListView相同
+            height: 63 // 设置矩形的高度
+            border.color: "#FF7F50" // 设置矩形的边框颜色
+            radius: 8 // 设置矩形的圆角半径
+            }
             }
 
             ListView{
@@ -137,6 +116,15 @@ Rectangle {
                 model: text_model
                 delegate: text_delegate
                 clip: true
+            }
+
+            anchors.fill: parent
+            anchors.margins: 10
+            radius: 18
+            color: "transparent"
+
+            ListModel {
+                id: text_model
             }
 
             Component.onCompleted: {
@@ -289,7 +277,29 @@ Rectangle {
             for(var i = 0; i < command.memo_all_txt.length; i++) {
                 console.log(command.memo_all_txt[i]);
             }
+
             console.log("yessssssss!")
+        }
+
+        width: parent.width
+        height: parent.height - memo_title.height
+        anchors.top: memo_title.bottom
+        property bool flipped: set_flag
+
+
+    }
+
+    Rectangle {
+        id: memo_title
+        width: parent.width
+        height: 26
+        color: "#D2691E"
+        Label {
+            anchors.verticalCenter: parent.verticalCenter
+            x:5
+            color: "white"
+            font.pointSize: 15
+            text: qsTr("memo")
         }
     }
 }

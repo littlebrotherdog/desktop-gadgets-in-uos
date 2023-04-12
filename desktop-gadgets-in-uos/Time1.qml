@@ -6,11 +6,6 @@ import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: card_t1
-    width: 120
-    height: 120
-    border.color: "#afb0b2"
-    border.width: 0
-    color: "#f9957f"
 
     Timer{
         id:timer
@@ -56,6 +51,7 @@ Rectangle {
     Label {
         id: t_label1
         color: "white"
+
         anchors.horizontalCenter: parent.horizontalCenter
         y:12
         font.family: "Arial"
@@ -66,6 +62,7 @@ Rectangle {
     Label {
         id: t_label2
         color: "white"
+
         anchors.horizontalCenter: parent.horizontalCenter
         y: 70
         font.family: "Arial"
@@ -76,6 +73,7 @@ Rectangle {
     Label {
         id: t_label3
         color: "white"
+
         anchors.horizontalCenter: parent.horizontalCenter
         y:88
         font.family: "Arial"
@@ -87,6 +85,7 @@ Rectangle {
         interval: 1000
         repeat: true
         running: true
+
         triggeredOnStart: true
         /*MouseArea {
                  anchors.fill: parent
@@ -107,8 +106,9 @@ Rectangle {
                  }
              }
          }*/
+
         onTriggered: {
-            var date = Qt.formatDateTime(new Date(), qsTr("h:m"))
+            var date = Qt.formatDateTime(new Date(), qsTr("hh:mm"))
             t_label1.text = date
             date = Qt.formatDateTime(new Date(), qsTr("yyyy年M月d日"))
             t_label2.text = date
@@ -124,4 +124,10 @@ Rectangle {
         }
         console.log("yessssssss!")
     }
+
+    width: 120
+    height: 120
+    border.color: "#afb0b2"
+    border.width: 0
+    color: "#f9957f"
 }

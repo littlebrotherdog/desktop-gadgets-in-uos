@@ -3,10 +3,6 @@ import QtQuick.Controls 2.2
 
 Rectangle {
     id: rectangle
-    width: 248
-    height: 96
-    anchors.fill: parent
-    color: "#FFFFFF"
 
     Rectangle {
 
@@ -67,8 +63,16 @@ Rectangle {
                 font.pointSize: 10
                 text: qsTr("Memo")
             }
+
         }
+
     }
+
+    width: 248
+    height: 96
+    anchors.fill: parent
+    color: "#FFFFFF"
+
 }
 
 

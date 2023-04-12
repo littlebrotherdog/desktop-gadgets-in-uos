@@ -122,55 +122,62 @@ Item {
         }
     }
     Rectangle{
-        anchors.fill:parent
-        color: "transparent"
-        height :0
-        width :0
-        opacity:0
-        radius:0
-        Text{
-            id:xxx
-            text:str_h+":"+str_m+":"+str_s
-            font.family:"微软雅黑"
-            color: "#ffffff"
-            font.bold:true
-            font.pointSize: 30
-            anchors.centerIn: parent
-        }
+    // 定义一个矩形
+    anchors.fill: parent // 矩形填充父元素
+    color: "transparent" // 矩形颜色为透明
+    height: 0 // 矩形高度为0
+    width: 0 // 矩形宽度为0
+    opacity: 0 // 矩形透明度为0
+    radius: 0 // 矩形圆角半径为0
+
+    Text {
+    id: xxx // 文本元素的id
+    text: str_h + ":" + str_m + ":" + str_s // 显示时间的文本
+    font.family: "微软雅黑" // 字体为微软雅黑
+    color: "#ffffff" // 文本颜色为白色
+    font.bold: true // 文本加粗
+    font.pointSize: 30 // 字体大小为30
+    anchors.centerIn: parent // 文本元素居中在矩形中
     }
-    Rectangle{
-        anchors.fill:parent
-        color: "transparent"
-        height :0
-        width :0
-        opacity:0
-        radius:0
-        Text{
-            id:xxxx
-            text:str_h+":"+str_m+":"+str_s
-            font.family:"微软雅黑"
-            color: "#ffffff"
-            font.bold:true
-            font.pointSize: 30
-            anchors.centerIn: parent
-        }
     }
+
+    // 以下两个矩形的代码结构与上面类似，不再赘述
     Rectangle{
-        anchors.fill:parent
-        color: "transparent"
-        height :0
-        width :0
-        opacity:0
-        radius:0
-        Text{
-            id:xxxxx
-            text:str_h+":"+str_m+":"+str_s
-            font.family:"微软雅黑"
-            color: "#ffffff"
-            font.bold:true
-            font.pointSize: 30
-            anchors.centerIn: parent
-        }
+    anchors.fill: parent
+    color: "transparent"
+    height: 0
+    width: 0
+    opacity: 0
+    radius: 0
+
+    Text {
+    id: xxxx
+    text: str_h + ":" + str_m + ":" + str_s
+    font.family: "微软雅黑"
+    color: "#ffffff"
+    font.bold: true
+    font.pointSize: 30
+    anchors.centerIn: parent
+    }
+    }
+
+    Rectangle{
+    anchors.fill: parent
+    color: "transparent"
+    height: 0
+    width: 0
+    opacity: 0
+    radius: 0
+
+    Text {
+    id: xxxxx
+    text: str_h + ":" + str_m + ":" + str_s
+    font.family: "微软雅黑"
+    color: "#ffffff"
+    font.bold: true
+    font.pointSize: 30
+    anchors.centerIn: parent
+    }
     }
 }
 

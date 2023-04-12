@@ -6,11 +6,6 @@ import "script/my_f.js" as Weather
 
 Rectangle {
     id: card_w2
-    width: 240
-    height: 120
-    radius: 0
-    border.color: "#afb0b2"
-    border.width: 0
 
     Timer{
         id:timer
@@ -72,33 +67,18 @@ Rectangle {
 
     Flipable {
         id: flipable
-        anchors.fill: parent
-        property bool flipped: set_flag
+        transform: Rotation {
+            id: rot
+            origin.x: flipable.width >> 1
+            origin.y: flipable.height >> 1
+            axis.x: 0; axis.y: 1; axis.z: 0
+            angle: 0
+        }
+
 
         front:
 
         Rectangle {
-            anchors.fill: parent
-            radius: 18
-            color: "transparent"
-            Text {
-                id: city_txt
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-                y: 10
-                color: "white"
-                font.pointSize: 10
-                text: qsTr(command.city_name)
-            }
-
-            Text {
-                id: temp_text
-                anchors.left: city_txt.left
-                y: 16
-                font.pointSize: 28
-                color: "white"
-                text: qsTr(cityTemperature)
-            }
 
             Image {
                 id: weather_icon
@@ -119,6 +99,53 @@ Rectangle {
                 visible: false
             }
 
+            Text {
+                id: city_txt
+                color: "white"
+                font.pointSize: 10
+                text: qsTr(command.city_name)
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+                y: 10
+
+            }
+
+            Text {
+                id: temp_text
+                font.pointSize: 28
+                color: "white"
+                text: qsTr(cityTemperature)
+
+                anchors.left: city_txt.left
+                y: 16
+
+            }
+
+            Text {
+                id: description_text
+                font.pointSize: 10
+                color: "white"
+                text: qsTr(cityDescription)
+
+                anchors.bottom: new_text.top
+                anchors.right: weather_icon.right
+
+            }
+
+            Text {
+                id: new_text
+                font.pointSize: 10
+                color: "white"
+                text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity)
+
+                anchors.bottom: temp_text.bottom
+                anchors.right: parent.right
+                anchors.bottomMargin: 0
+                anchors.rightMargin: 10
+
+            }
+
             DropShadow {
                 anchors.fill: weather_icon
                 horizontalOffset: 3
@@ -134,26 +161,6 @@ Rectangle {
                 samples: 30
                 color: "#80000000"
                 source: weather_icon
-            }
-
-            Text {
-                id: description_text
-                anchors.bottom: new_text.top
-                anchors.right: weather_icon.right
-                font.pointSize: 10
-                color: "white"
-                text: qsTr(cityDescription)
-            }
-
-            Text {
-                id: new_text
-                anchors.bottom: temp_text.bottom
-                anchors.right: parent.right
-                anchors.bottomMargin: 0
-                anchors.rightMargin: 10
-                font.pointSize: 10
-                color: "white"
-                text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity)
             }
 
             Rectangle {
@@ -231,6 +238,10 @@ Rectangle {
                     }
                 }
             }
+
+            anchors.fill: parent
+            radius: 18
+            color: "transparent"
         }
 
         back:
@@ -243,6 +254,7 @@ Rectangle {
             Label {
                 id: title_set
                 color: "white"
+
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:24
                 font.pointSize: 14
@@ -275,14 +287,6 @@ Rectangle {
             }
         }
 
-        transform: Rotation {
-            id: rot
-            origin.x: flipable.width >> 1
-            origin.y: flipable.height >> 1
-            axis.x: 0; axis.y: 1; axis.z: 0
-            angle: 0
-        }
-
         Item {
             id:root
             visible : false
@@ -313,54 +317,53 @@ Rectangle {
         }
 
         states: State {
-            name: "back"
-            PropertyChanges {
-                target: rot;
-                angle: 180
-            }
-            when: flipable.flipped
+        name: "back" // 定义状态名称
+        PropertyChanges {
+        target: rot; // 设置动画效果的目标控件为 rot
+        angle: 180 // 在状态 "back" 下，将 rot 控件旋转 180 度
+        }
+        when: flipable.flipped // 当 flipable.flipped 属性为 true 时，切换至 "back" 状态
         }
 
         Text {
-            visible: false
-            id:vv
-            anchors.centerIn: parent
-            text: "Start"
+        visible: false // 设置 Text 控件不可见
+        id:vv // 设置控件的 id 为 vv
+        anchors.centerIn: parent // 将 Text 控件在父控件中居中
+        text: "Start" // Text 控件显示的文本为 "Start"
         }
+        anchors.fill: parent // 将该组件与其父组件填充
+
+        property bool flipped: set_flag // 定义属性 flipped，并初始化为 set_flag
 
         transitions: Transition {
-            /*MouseArea{
-                cursorShape: Qt.IBeamCursor
-                acceptedButtons: Qt.NoButton
-            }*/
-            NumberAnimation { target: rot; property: "angle"; duration: 1 }
-            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad }
-            ColorAnimation { duration: 1000 }
+        NumberAnimation { target: rot; property: "angle"; duration: 1 } // 设置控件 rot 在翻转时的角度变化动画
+        NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad } // 设置 x 和 y 属性的变化动画，使用 Easing.InOutQuad 缓动函数
+        ColorAnimation { duration: 1000 } // 设置颜色变化动画的时长为 1000 毫秒
         }
 
         Timer {
-            interval: 1000
-            repeat: true
-            running: true
-            triggeredOnStart: true
-            onTriggered: {
-                Weather.parse_JS_1()
-                Weather.parse_JS_5()
-            }
+        interval: 1000 // 设置计时器触发的时间间隔为 1 秒
+        repeat: true // 设置计时器是否循环触发
+        running: true // 设置计时器是否在开始时自动运行
+        triggeredOnStart: true // 设置计时器在启动时是否立即触发 onTriggered 信号
+        onTriggered: { // 当计时器触发时，调用以下 JavaScript 代码块
+        Weather.parse_JS_1() // 调用 Weather 对象的 parse_JS_1 方法
+        Weather.parse_JS_5() // 调用 Weather 对象的 parse_JS_5 方法
+        }
         }
 
         Connections {
-            target: card_window
-            onSetBtnClicked: {
-                command.city_name = text_new.text
-                MouseArea:{
-                    cursorShape: Qt.IBeamCursor
-                    acceptedButtons: Qt.NoButton
-                }
-                Weather.setCityName(command.city_name)
-                Weather.parse_JS_1()
-                Weather.parse_JS_5()
-            }
+        target: card_window // 设置 Connections 的目标为 card_window
+        onSetBtnClicked: { // 当 card_window 发出 onSetBtnClicked 信号时，调用以下 JavaScript 代码块
+        command.city_name = text_new.text // 设置 command 对象的 city_name 属性为 text_new.text 的值
+        MouseArea:{ // 设置 MouseArea 的属性
+        cursorShape: Qt.IBeamCursor // 设置鼠标指针的形状为 IBeamCursor
+        acceptedButtons: Qt.NoButton // 禁止鼠标点击操作
+        }
+        Weather.setCityName(command.city_name) // 调用 Weather 对象的 setCityName 方法，设置城市名称
+        Weather.parse_JS_1() // 调用 Weather 对象的 parse_JS_1 方法
+        Weather.parse_JS_5() // 调用 Weather 对象的 parse_JS_5 方法
+        }
         }
 
         Component.onDestruction: {
@@ -370,5 +373,12 @@ Rectangle {
             }
             console.log("yessssssss!")
         }
+
     }
+
+    width: 240
+    height: 120
+    radius: 0
+    border.color: "#afb0b2"
+    border.width: 0
 }
