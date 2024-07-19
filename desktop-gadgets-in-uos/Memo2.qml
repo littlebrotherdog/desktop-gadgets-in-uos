@@ -79,51 +79,51 @@ Rectangle {
 
         // 显示文本的文本框
         Text {
-        id: text1
-        width: parent.width - 40 // 设置文本框的宽度
+            id: text1
+            width: parent.width - 40 // 设置文本框的宽度
 
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 10
-        anchors.topMargin: 4
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 10
+            anchors.topMargin: 4
 
-        font.pointSize: 10
-        wrapMode: TextEdit.WordWrap
-        text: mText // 显示文本的数据绑定
+            font.pointSize: 10
+            wrapMode: TextEdit.WordWrap
+            text: mText // 显示文本的数据绑定
         }
 
         // 删除按钮
         Image {
-        id: delete_btn
-        source: "qrc:/image/delete.svg"
-        width: 18
-        height: 18
+            id: delete_btn
+            source: "qrc:/image/delete.svg"
+            width: 18
+            height: 18
 
         // 添加鼠标事件处理程序
         MouseArea {
-        anchors.fill: parent
-        onClicked: {
-        memo_my_birth.splice(index, 1) // 从数据模型中删除该项
+            anchors.fill: parent
+            onClicked: {
+                memo_my_birth.splice(index, 1) // 从数据模型中删除该项
 
-        text_mod.clear() // 清空文本修改器
-        for(var i = 0; i < memo_my_birth.length; i++) {
-        text_mod.append(memo_my_birth[i]) // 更新文本修改器
-        }
-        }
+                text_mod.clear() // 清空文本修改器
+                for(var i = 0; i < memo_my_birth.length; i++) {
+                    text_mod.append(memo_my_birth[i]) // 更新文本修改器
+                }
+            }
         }
 
-        anchors.top: parent.top
-        anchors.topMargin: 5
-        anchors.right: parent.right
-        anchors.rightMargin: 5
+            anchors.top: parent.top
+            anchors.topMargin: 5
+            anchors.right: parent.right
+            anchors.rightMargin: 5
         }
 
         // 设置矩形的宽度和高度以及边框属性和边框半径
-        width: ListView.view.width
-        height: listview_rect2.height - list_view.spacing
-        border.color: "#FF7F50"
-        radius: 8
-        }
+            width: ListView.view.width
+            height: listview_rect2.height - list_view.spacing
+            border.color: "#FF7F50"
+            radius: 8
+            }
         }
 
             ListView {
@@ -229,7 +229,7 @@ Rectangle {
 
         if(pos !== (-1))
         {
-        return txt.replace(str,"<font color='#FF0000'>" + str + "</font>")
+            return txt.replace(str,"<font color='#FF0000'>" + str + "</font>")
         }
         // 如果文本在列表项中，则将文本高亮显示
 
@@ -260,8 +260,6 @@ Rectangle {
         }
         }
 }
-
-
             anchors.fill: parent
             anchors.margins: 10
             radius: 18
@@ -321,7 +319,7 @@ Rectangle {
         width: parent.width
         height: parent.height - memo_title.height
         anchors.top: memo_title.bottom
-        property bool flipped: set_flag
+        property bool flipped: auto_break
 
     }
 

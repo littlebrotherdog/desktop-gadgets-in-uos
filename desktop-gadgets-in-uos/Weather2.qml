@@ -2,6 +2,9 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.1
+import QtQuick 2.8
+import QtQuick.Window 2.2
+import QtQuick.Particles 2.0
 import "script/my_f.js" as Weather
 
 Rectangle {
@@ -59,10 +62,10 @@ Rectangle {
         transitions: Transition: {
                 //ColorAnimation { duration: 1000 }
             }
-        Weather.setCityName(command.city_name)
-        Weather.setrandom(0)
-        Weather.parse_JS_1()
-        Weather.parse_JS_5()
+        Weather.set_name(command.city_name);
+        Weather.setrandom(0);
+        Weather.parse_JS_1();
+        Weather.parse_JS_5();
     }
 
     Flipable {
@@ -81,22 +84,22 @@ Rectangle {
         Rectangle {
 
             Image {
-            id: weather_icon //控件的唯一标识符
-            height: 18 //控件的高度
-            fillMode: Image.PreserveAspectFit //图像的填充模式
-            source: cityWeatherIcon //图像文件的路径，从外部变量 cityWeatherIcon 中读取
+                id: weather_icon //控件的唯一标识符
+                height: 21 //控件的高度
+                fillMode: Image.PreserveAspectFit //图像的填充模式
+                source: city_W //图像文件的路径，从外部变量 city_W 中读取
 
-            MouseArea{ //添加一个鼠标区域
-            cursorShape: Qt.IBeamCursor //设置鼠标形状为I形光标
-            acceptedButtons: Qt.NoButton //禁止鼠标单击
-            }
+                MouseArea{ //添加一个鼠标区域
+                    cursorShape: Qt.IBeamCursor //设置鼠标形状为I形光标
+                    acceptedButtons: Qt.NoButton //禁止鼠标单击
+                }
 
-            anchors.bottom: description_text.top //控件的底部与描述文本控件的顶部对齐
-            anchors.top: parent.top //控件的顶部与父元素的顶部对齐
-            anchors.topMargin: 5 //控件与父元素顶部的边距
-            anchors.right: parent.right //控件的右侧与父元素的右侧对齐
-            anchors.rightMargin: 15 //控件与父元素右侧的边距
-            visible: false //控件不可见
+                anchors.bottom: description_text.top //控件的底部与描述文本控件的顶部对齐
+                anchors.top: parent.top //控件的顶部与父元素的顶部对齐
+                anchors.topMargin: 8 //控件与父元素顶部的边距
+                anchors.right: parent.right //控件的右侧与父元素的右侧对齐
+                anchors.rightMargin: 15 //控件与父元素右侧的边距
+                visible: false //控件不可见
             }
 
             Text {
@@ -114,7 +117,7 @@ Rectangle {
             id: temp_text //控件的唯一标识符
             font.pointSize: 28 //字体大小为28
             color: "white" //文字颜色为白色
-            text: qsTr(cityTemperature) //文本内容从外部变量cityTemperature中读取
+            text: qsTr(city_T) //文本内容从外部变量cityTemperature中读取
 
             anchors.left: city_txt.left //控件的左侧与城市文本控件的左侧对齐
             y: 15//控件的y坐标
@@ -124,7 +127,7 @@ Rectangle {
             id: description_text //控件的唯一标识符
             font.pointSize: 11//字体大小为11
             color: "white" //文字颜色为白色
-            text: qsTr(cityDescription) //文本内容从外部变量cityDescription中读取
+            text: qsTr(city_D) //文本内容从外部变量cityDescription中读取
 
             anchors.bottom: new_text.top //控件的底部与新闻文本控件的顶部对齐
             anchors.right: weather_icon.right //控件的右侧与天气图标控件的右侧对齐
@@ -274,34 +277,68 @@ Rectangle {
                 color: "white"
 
                 anchors.horizontalCenter: parent.horizontalCenter
-                y:20
+                y:30
                 font.pointSize: 16
-                text: qsTr("Please set your city")
+                text: qsTr("When life gives you lemons")
             }
 
-            TextField{
-                id: text_new
-                height: 20
-                width: 42
+            Label {
+                id: title_1set
+                color: "white"
+
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter:parent.verticalCenter
+                y:50
+                font.pointSize: 16
+                text: qsTr("just make lemonade")
+            }
+            //粒子发射系统
+            ParticleSystem {
+                id: particleSystem
+            }
 
-                MouseArea{
-                    cursorShape: Qt.IBeamCursor
-                    acceptedButtons: Qt.NoButton
+            Emitter {
+                id: emitter
+                //发射范围
+                width: 1; height: 1
+                x:0; y:100
+                system: particleSystem
+                emitRate: 3
+                lifeSpan: 6400
+                //生命周期变化的速度
+                lifeSpanVariation: 500
+                size: 16
+
+                velocity: PointDirection{
+                    x: 100
+                    y: 0
+                    xVariation: 5
+                    yVariation: 0
                 }
+                //加速度对应的变化
+                acceleration: AngleDirection{
+                    angle: 90
+                    magnitude: 25
+                }
+            }
 
-                anchors.top: title_set.bottom
-                anchors.topMargin: 5
-                text: qsTr(command.city_name)
-                font.pointSize: 10
+            ItemParticle{
+                id: particle
+                system: particleSystem
+                delegate: itemDelegate
+            }
 
-                // cache :true
-                smooth: true
-                visible: true
-
-                color: "black"
-                focus: true
+            Component{
+                id: itemDelegate
+                Rectangle{
+                    id: container
+                    width: 20*Math.ceil(Math.random()*3);height: width
+                    color: "transparent"
+                    Image {
+                        anchors.fill:parent
+                        anchors.margins: 4
+                        source: "image/like.svg"
+                    }
+                }
             }
         }
 
@@ -336,52 +373,52 @@ Rectangle {
 
         states: State {
         name: "back" // 定义状态名称
-        PropertyChanges {
-        target: rot; // 设置动画效果的目标控件为 rot
-        angle: 180 // 在状态 "back" 下，将 rot 控件旋转 180 度
-        }
-        when: flipable.flipped // 当 flipable.flipped 属性为 true 时，切换至 "back" 状态
+            PropertyChanges {
+                target: rot; // 设置动画效果的目标控件为 rot
+                angle: 180 // 在状态 "back" 下，将 rot 控件旋转 180 度
+            }
+            when: flipable.flipped // 当 flipable.flipped 属性为 true 时，切换至 "back" 状态
         }
 
         Text {
-        visible: false // 设置 Text 控件不可见
-        id:vv // 设置控件的 id 为 vv
-        anchors.centerIn: parent // 将 Text 控件在父控件中居中
-        text: "Start" // Text 控件显示的文本为 "Start"
+            visible: false // 设置 Text 控件不可见
+            id:vv // 设置控件的 id 为 vv
+            anchors.centerIn: parent // 将 Text 控件在父控件中居中
+            text: "Start" // Text 控件显示的文本为 "Start"
         }
         anchors.fill: parent // 将该组件与其父组件填充
 
-        property bool flipped: set_flag // 定义属性 flipped，并初始化为 set_flag
+        property bool flipped: auto_break // 定义属性 flipped，并初始化为 auto_break
 
         transitions: Transition {
-        NumberAnimation { target: rot; property: "angle"; duration: 1 } // 设置控件 rot 在翻转时的角度变化动画
-        NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad } // 设置 x 和 y 属性的变化动画，使用 Easing.InOutQuad 缓动函数
-        ColorAnimation { duration: 1000 } // 设置颜色变化动画的时长为 1000 毫秒
+            NumberAnimation { target: rot; property: "angle"; duration: 1 } // 设置控件 rot 在翻转时的角度变化动画
+            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad } // 设置 x 和 y 属性的变化动画，使用 Easing.InOutQuad 缓动函数
+            ColorAnimation { duration: 1000 } // 设置颜色变化动画的时长为 1000 毫秒
         }
 
         Timer {
-        interval: 1000 // 设置计时器触发的时间间隔为 1 秒
-        repeat: true // 设置计时器是否循环触发
-        running: true // 设置计时器是否在开始时自动运行
-        triggeredOnStart: true // 设置计时器在启动时是否立即触发 onTriggered 信号
-        onTriggered: { // 当计时器触发时，调用以下 JavaScript 代码块
-        Weather.parse_JS_1() // 调用 Weather 对象的 parse_JS_1 方法
-        Weather.parse_JS_5() // 调用 Weather 对象的 parse_JS_5 方法
-        }
+            interval: 1000 // 设置计时器触发的时间间隔为 1 秒
+            repeat: true // 设置计时器是否循环触发
+            running: true // 设置计时器是否在开始时自动运行
+            triggeredOnStart: true // 设置计时器在启动时是否立即触发 onTriggered 信号
+            onTriggered: { // 当计时器触发时，调用以下 JavaScript 代码块
+            Weather.set_name(command.city_name)
+            Weather.parse_JS_1() // 调用 Weather 对象的 parse_JS_1 方法
+            Weather.parse_JS_5() // 调用 Weather 对象的 parse_JS_5 方法
+            }
         }
 
         Connections {
-        target: card_window // 设置 Connections 的目标为 card_window
-        onSetBtnClicked: { // 当 card_window 发出 onSetBtnClicked 信号时，调用以下 JavaScript 代码块
-        command.city_name = text_new.text // 设置 command 对象的 city_name 属性为 text_new.text 的值
-        MouseArea:{ // 设置 MouseArea 的属性
-        cursorShape: Qt.IBeamCursor // 设置鼠标指针的形状为 IBeamCursor
-        acceptedButtons: Qt.NoButton // 禁止鼠标点击操作
-        }
-        Weather.setCityName(command.city_name) // 调用 Weather 对象的 setCityName 方法，设置城市名称
-        Weather.parse_JS_1() // 调用 Weather 对象的 parse_JS_1 方法
-        Weather.parse_JS_5() // 调用 Weather 对象的 parse_JS_5 方法
-        }
+            target: card_window // 设置 Connections 的目标为 card_window
+            onSetBtnClicked: { // 当 card_window 发出 onSetBtnClicked 信号时，调用以下 JavaScript 代码块
+            Weather.set_name(command.city_name)
+            MouseArea:{ // 设置 MouseArea 的属性
+                cursorShape: Qt.IBeamCursor // 设置鼠标指针的形状为 IBeamCursor
+                acceptedButtons: Qt.NoButton // 禁止鼠标点击操作
+            }
+            Weather.parse_JS_1() // 调用 Weather 对象的 parse_JS_1 方法
+            Weather.parse_JS_5() // 调用 Weather 对象的 parse_JS_5 方法
+            }
         }
 
         Component.onDestruction: {
@@ -389,7 +426,7 @@ Rectangle {
             for(var i = 0; i < command.memo_all_txt.length; i++) {
                 console.log(command.memo_all_txt[i]);
             }
-            console.log("yessssssss!")
+            console.log("yessssssss!");
         }
 
     }

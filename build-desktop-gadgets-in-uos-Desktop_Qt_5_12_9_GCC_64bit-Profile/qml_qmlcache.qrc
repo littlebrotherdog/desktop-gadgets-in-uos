@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/">
+        <file alias="image/memo1">../desktop-gadgets-in-uos/image/memo1</file>
+        <file alias="image/weather1">../desktop-gadgets-in-uos/image/weather1</file>
+        <file alias="image/zoom-in.svg">../desktop-gadgets-in-uos/image/zoom-in.svg</file>
+        <file alias="image/power.svg">../desktop-gadgets-in-uos/image/power.svg</file>
+        <file alias="image/delete.svg">../desktop-gadgets-in-uos/image/delete.svg</file>
+        <file alias="image/zoom-out.svg">../desktop-gadgets-in-uos/image/zoom-out.svg</file>
+        <file alias="image/refresh.svg">../desktop-gadgets-in-uos/image/refresh.svg</file>
+        <file alias="image/time1">../desktop-gadgets-in-uos/image/time1</file>
+        <file alias="image/13.gif">../desktop-gadgets-in-uos/image/13.gif</file>
+        <file alias="image/ghost.gif">../desktop-gadgets-in-uos/image/ghost.gif</file>
+        <file alias="image/water-level.svg">../desktop-gadgets-in-uos/image/water-level.svg</file>
+        <file alias="image/like.svg">../desktop-gadgets-in-uos/image/like.svg</file>
+        <file alias="image/rock.svg">../desktop-gadgets-in-uos/image/rock.svg</file>
+        <file alias="image/blossom.svg">../desktop-gadgets-in-uos/image/blossom.svg</file>
+    </qresource>
+    <qresource prefix="/new/prefix1"/>
+</RCC>

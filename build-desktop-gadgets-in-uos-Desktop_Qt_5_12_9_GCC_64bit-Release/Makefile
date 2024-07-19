@@ -54,40 +54,58 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../desktop-gadgets-in-uos/main.cpp \
 		../desktop-gadgets-in-uos/timer.cpp qrc_qml_qmlcache.cpp \
-		Weather1_qml.cpp \
-		Time4_qml.cpp \
 		Memo1_qml.cpp \
-		Weather4_qml.cpp \
-		Memo4_qml.cpp \
-		Card_qml.cpp \
-		Time2_qml.cpp \
-		Clock_rect_qml.cpp \
-		CardWindow_qml.cpp \
-		Weather2_qml.cpp \
-		Time1_qml.cpp \
-		main_qml.cpp \
-		Panel_qml.cpp \
+		Board_qml.cpp \
 		Memo2_qml.cpp \
+		Cell_qml.cpp \
+		CustomBtn_qml.cpp \
+		Memo4_qml.cpp \
+		ScoreBoard_qml.cpp \
+		GameOverWnd_qml.cpp \
+		CardWindow_qml.cpp \
+		OptionsWnd_qml.cpp \
+		Time1_qml.cpp \
+		Time2_qml.cpp \
+		Panel_qml.cpp \
+		Time4_qml.cpp \
+		My2048_qml.cpp \
+		Weather1_qml.cpp \
+		Weather2_qml.cpp \
+		Weather4_qml.cpp \
+		main_qml.cpp \
+		Clock_rect_qml.cpp \
+		Card_qml.cpp \
+		script_logic_js.cpp \
 		script_my_f_js.cpp \
+		script_other_js.cpp \
 		qmlcache_loader.cpp
 OBJECTS       = main.o \
 		timer.o \
 		qrc_qml_qmlcache.o \
-		Weather1_qml.o \
-		Time4_qml.o \
 		Memo1_qml.o \
-		Weather4_qml.o \
-		Memo4_qml.o \
-		Card_qml.o \
-		Time2_qml.o \
-		Clock_rect_qml.o \
-		CardWindow_qml.o \
-		Weather2_qml.o \
-		Time1_qml.o \
-		main_qml.o \
-		Panel_qml.o \
+		Board_qml.o \
 		Memo2_qml.o \
+		Cell_qml.o \
+		CustomBtn_qml.o \
+		Memo4_qml.o \
+		ScoreBoard_qml.o \
+		GameOverWnd_qml.o \
+		CardWindow_qml.o \
+		OptionsWnd_qml.o \
+		Time1_qml.o \
+		Time2_qml.o \
+		Panel_qml.o \
+		Time4_qml.o \
+		My2048_qml.o \
+		Weather1_qml.o \
+		Weather2_qml.o \
+		Weather4_qml.o \
+		main_qml.o \
+		Clock_rect_qml.o \
+		Card_qml.o \
+		script_logic_js.o \
 		script_my_f_js.o \
+		script_other_js.o \
 		qmlcache_loader.o
 DIST          = ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/common/unix.conf \
@@ -701,7 +719,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents qml_qmlcache.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/Weather1.qml ../desktop-gadgets-in-uos/Time4.qml ../desktop-gadgets-in-uos/Memo1.qml ../desktop-gadgets-in-uos/Weather4.qml ../desktop-gadgets-in-uos/Memo4.qml ../desktop-gadgets-in-uos/Card.qml ../desktop-gadgets-in-uos/Time2.qml ../desktop-gadgets-in-uos/Clock_rect.qml ../desktop-gadgets-in-uos/CardWindow.qml ../desktop-gadgets-in-uos/Weather2.qml ../desktop-gadgets-in-uos/Time1.qml ../desktop-gadgets-in-uos/main.qml ../desktop-gadgets-in-uos/Panel.qml ../desktop-gadgets-in-uos/Memo2.qml ../desktop-gadgets-in-uos/script/my_f.js $(DISTDIR)/
+	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/Memo1.qml ../desktop-gadgets-in-uos/Board.qml ../desktop-gadgets-in-uos/Memo2.qml ../desktop-gadgets-in-uos/Cell.qml ../desktop-gadgets-in-uos/CustomBtn.qml ../desktop-gadgets-in-uos/Memo4.qml ../desktop-gadgets-in-uos/ScoreBoard.qml ../desktop-gadgets-in-uos/GameOverWnd.qml ../desktop-gadgets-in-uos/CardWindow.qml ../desktop-gadgets-in-uos/OptionsWnd.qml ../desktop-gadgets-in-uos/Time1.qml ../desktop-gadgets-in-uos/Time2.qml ../desktop-gadgets-in-uos/Panel.qml ../desktop-gadgets-in-uos/Time4.qml ../desktop-gadgets-in-uos/My2048.qml ../desktop-gadgets-in-uos/Weather1.qml ../desktop-gadgets-in-uos/Weather2.qml ../desktop-gadgets-in-uos/Weather4.qml ../desktop-gadgets-in-uos/main.qml ../desktop-gadgets-in-uos/Clock_rect.qml ../desktop-gadgets-in-uos/Card.qml ../desktop-gadgets-in-uos/script/logic.js ../desktop-gadgets-in-uos/script/my_f.js ../desktop-gadgets-in-uos/script/other.js $(DISTDIR)/
 	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/timer.h $(DISTDIR)/
@@ -737,8 +755,12 @@ qrc_qml_qmlcache.cpp: qml_qmlcache.qrc \
 		../desktop-gadgets-in-uos/image/refresh.svg \
 		../desktop-gadgets-in-uos/image/zoom-in.svg \
 		../desktop-gadgets-in-uos/image/weather1 \
+		../desktop-gadgets-in-uos/image/water-level.svg \
+		../desktop-gadgets-in-uos/image/blossom.svg \
 		../desktop-gadgets-in-uos/image/power.svg \
 		../desktop-gadgets-in-uos/image/13.gif \
+		../desktop-gadgets-in-uos/image/like.svg \
+		../desktop-gadgets-in-uos/image/rock.svg \
 		../desktop-gadgets-in-uos/image/time1 \
 		../desktop-gadgets-in-uos/image/ghost.gif \
 		../desktop-gadgets-in-uos/image/zoom-out.svg \
@@ -746,68 +768,104 @@ qrc_qml_qmlcache.cpp: qml_qmlcache.qrc \
 		../desktop-gadgets-in-uos/image/memo1
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/rcc -name qml_qmlcache qml_qmlcache.qrc -o qrc_qml_qmlcache.cpp
 
-compiler_qmlcache_make_all: Weather1_qml.cpp Time4_qml.cpp Memo1_qml.cpp Weather4_qml.cpp Memo4_qml.cpp Card_qml.cpp Time2_qml.cpp Clock_rect_qml.cpp CardWindow_qml.cpp Weather2_qml.cpp Time1_qml.cpp main_qml.cpp Panel_qml.cpp Memo2_qml.cpp script_my_f_js.cpp
+compiler_qmlcache_make_all: Memo1_qml.cpp Board_qml.cpp Memo2_qml.cpp Cell_qml.cpp CustomBtn_qml.cpp Memo4_qml.cpp ScoreBoard_qml.cpp GameOverWnd_qml.cpp CardWindow_qml.cpp OptionsWnd_qml.cpp Time1_qml.cpp Time2_qml.cpp Panel_qml.cpp Time4_qml.cpp My2048_qml.cpp Weather1_qml.cpp Weather2_qml.cpp Weather4_qml.cpp main_qml.cpp Clock_rect_qml.cpp Card_qml.cpp script_logic_js.cpp script_my_f_js.cpp script_other_js.cpp
 compiler_qmlcache_clean:
-	-$(DEL_FILE) Weather1_qml.cpp Time4_qml.cpp Memo1_qml.cpp Weather4_qml.cpp Memo4_qml.cpp Card_qml.cpp Time2_qml.cpp Clock_rect_qml.cpp CardWindow_qml.cpp Weather2_qml.cpp Time1_qml.cpp main_qml.cpp Panel_qml.cpp Memo2_qml.cpp script_my_f_js.cpp
-Weather1_qml.cpp: ../desktop-gadgets-in-uos/Weather1.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather1_qml.cpp ../desktop-gadgets-in-uos/Weather1.qml
-
-Time4_qml.cpp: ../desktop-gadgets-in-uos/Time4.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Time4_qml.cpp ../desktop-gadgets-in-uos/Time4.qml
-
+	-$(DEL_FILE) Memo1_qml.cpp Board_qml.cpp Memo2_qml.cpp Cell_qml.cpp CustomBtn_qml.cpp Memo4_qml.cpp ScoreBoard_qml.cpp GameOverWnd_qml.cpp CardWindow_qml.cpp OptionsWnd_qml.cpp Time1_qml.cpp Time2_qml.cpp Panel_qml.cpp Time4_qml.cpp My2048_qml.cpp Weather1_qml.cpp Weather2_qml.cpp Weather4_qml.cpp main_qml.cpp Clock_rect_qml.cpp Card_qml.cpp script_logic_js.cpp script_my_f_js.cpp script_other_js.cpp
 Memo1_qml.cpp: ../desktop-gadgets-in-uos/Memo1.qml \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Memo1_qml.cpp ../desktop-gadgets-in-uos/Memo1.qml
 
-Weather4_qml.cpp: ../desktop-gadgets-in-uos/Weather4.qml \
+Board_qml.cpp: ../desktop-gadgets-in-uos/Board.qml \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather4_qml.cpp ../desktop-gadgets-in-uos/Weather4.qml
-
-Memo4_qml.cpp: ../desktop-gadgets-in-uos/Memo4.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Memo4_qml.cpp ../desktop-gadgets-in-uos/Memo4.qml
-
-Card_qml.cpp: ../desktop-gadgets-in-uos/Card.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Card_qml.cpp ../desktop-gadgets-in-uos/Card.qml
-
-Time2_qml.cpp: ../desktop-gadgets-in-uos/Time2.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Time2_qml.cpp ../desktop-gadgets-in-uos/Time2.qml
-
-Clock_rect_qml.cpp: ../desktop-gadgets-in-uos/Clock_rect.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Clock_rect_qml.cpp ../desktop-gadgets-in-uos/Clock_rect.qml
-
-CardWindow_qml.cpp: ../desktop-gadgets-in-uos/CardWindow.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o CardWindow_qml.cpp ../desktop-gadgets-in-uos/CardWindow.qml
-
-Weather2_qml.cpp: ../desktop-gadgets-in-uos/Weather2.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather2_qml.cpp ../desktop-gadgets-in-uos/Weather2.qml
-
-Time1_qml.cpp: ../desktop-gadgets-in-uos/Time1.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Time1_qml.cpp ../desktop-gadgets-in-uos/Time1.qml
-
-main_qml.cpp: ../desktop-gadgets-in-uos/main.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o main_qml.cpp ../desktop-gadgets-in-uos/main.qml
-
-Panel_qml.cpp: ../desktop-gadgets-in-uos/Panel.qml \
-		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
-	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Panel_qml.cpp ../desktop-gadgets-in-uos/Panel.qml
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Board_qml.cpp ../desktop-gadgets-in-uos/Board.qml
 
 Memo2_qml.cpp: ../desktop-gadgets-in-uos/Memo2.qml \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Memo2_qml.cpp ../desktop-gadgets-in-uos/Memo2.qml
 
+Cell_qml.cpp: ../desktop-gadgets-in-uos/Cell.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Cell_qml.cpp ../desktop-gadgets-in-uos/Cell.qml
+
+CustomBtn_qml.cpp: ../desktop-gadgets-in-uos/CustomBtn.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o CustomBtn_qml.cpp ../desktop-gadgets-in-uos/CustomBtn.qml
+
+Memo4_qml.cpp: ../desktop-gadgets-in-uos/Memo4.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Memo4_qml.cpp ../desktop-gadgets-in-uos/Memo4.qml
+
+ScoreBoard_qml.cpp: ../desktop-gadgets-in-uos/ScoreBoard.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o ScoreBoard_qml.cpp ../desktop-gadgets-in-uos/ScoreBoard.qml
+
+GameOverWnd_qml.cpp: ../desktop-gadgets-in-uos/GameOverWnd.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o GameOverWnd_qml.cpp ../desktop-gadgets-in-uos/GameOverWnd.qml
+
+CardWindow_qml.cpp: ../desktop-gadgets-in-uos/CardWindow.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o CardWindow_qml.cpp ../desktop-gadgets-in-uos/CardWindow.qml
+
+OptionsWnd_qml.cpp: ../desktop-gadgets-in-uos/OptionsWnd.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o OptionsWnd_qml.cpp ../desktop-gadgets-in-uos/OptionsWnd.qml
+
+Time1_qml.cpp: ../desktop-gadgets-in-uos/Time1.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Time1_qml.cpp ../desktop-gadgets-in-uos/Time1.qml
+
+Time2_qml.cpp: ../desktop-gadgets-in-uos/Time2.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Time2_qml.cpp ../desktop-gadgets-in-uos/Time2.qml
+
+Panel_qml.cpp: ../desktop-gadgets-in-uos/Panel.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Panel_qml.cpp ../desktop-gadgets-in-uos/Panel.qml
+
+Time4_qml.cpp: ../desktop-gadgets-in-uos/Time4.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Time4_qml.cpp ../desktop-gadgets-in-uos/Time4.qml
+
+My2048_qml.cpp: ../desktop-gadgets-in-uos/My2048.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o My2048_qml.cpp ../desktop-gadgets-in-uos/My2048.qml
+
+Weather1_qml.cpp: ../desktop-gadgets-in-uos/Weather1.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather1_qml.cpp ../desktop-gadgets-in-uos/Weather1.qml
+
+Weather2_qml.cpp: ../desktop-gadgets-in-uos/Weather2.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather2_qml.cpp ../desktop-gadgets-in-uos/Weather2.qml
+
+Weather4_qml.cpp: ../desktop-gadgets-in-uos/Weather4.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Weather4_qml.cpp ../desktop-gadgets-in-uos/Weather4.qml
+
+main_qml.cpp: ../desktop-gadgets-in-uos/main.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o main_qml.cpp ../desktop-gadgets-in-uos/main.qml
+
+Clock_rect_qml.cpp: ../desktop-gadgets-in-uos/Clock_rect.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Clock_rect_qml.cpp ../desktop-gadgets-in-uos/Clock_rect.qml
+
+Card_qml.cpp: ../desktop-gadgets-in-uos/Card.qml \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o Card_qml.cpp ../desktop-gadgets-in-uos/Card.qml
+
+script_logic_js.cpp: ../desktop-gadgets-in-uos/script/logic.js \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o script_logic_js.cpp ../desktop-gadgets-in-uos/script/logic.js
+
 script_my_f_js.cpp: ../desktop-gadgets-in-uos/script/my_f.js \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o script_my_f_js.cpp ../desktop-gadgets-in-uos/script/my_f.js
+
+script_other_js.cpp: ../desktop-gadgets-in-uos/script/other.js \
+		../../../Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen
+	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmlcachegen --resource=/home/uos/Desktop/ans/desktop-gadgets-in-uos/qml.qrc -o script_other_js.cpp ../desktop-gadgets-in-uos/script/other.js
 
 compiler_qmlcache_loader_make_all: qmlcache_loader.cpp
 compiler_qmlcache_loader_clean:
@@ -937,50 +995,77 @@ timer.o: ../desktop-gadgets-in-uos/timer.cpp ../desktop-gadgets-in-uos/timer.h
 qrc_qml_qmlcache.o: qrc_qml_qmlcache.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml_qmlcache.o qrc_qml_qmlcache.cpp
 
-Weather1_qml.o: Weather1_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weather1_qml.o Weather1_qml.cpp
-
-Time4_qml.o: Time4_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Time4_qml.o Time4_qml.cpp
-
 Memo1_qml.o: Memo1_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Memo1_qml.o Memo1_qml.cpp
 
-Weather4_qml.o: Weather4_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weather4_qml.o Weather4_qml.cpp
-
-Memo4_qml.o: Memo4_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Memo4_qml.o Memo4_qml.cpp
-
-Card_qml.o: Card_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card_qml.o Card_qml.cpp
-
-Time2_qml.o: Time2_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Time2_qml.o Time2_qml.cpp
-
-Clock_rect_qml.o: Clock_rect_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Clock_rect_qml.o Clock_rect_qml.cpp
-
-CardWindow_qml.o: CardWindow_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CardWindow_qml.o CardWindow_qml.cpp
-
-Weather2_qml.o: Weather2_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weather2_qml.o Weather2_qml.cpp
-
-Time1_qml.o: Time1_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Time1_qml.o Time1_qml.cpp
-
-main_qml.o: main_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main_qml.o main_qml.cpp
-
-Panel_qml.o: Panel_qml.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Panel_qml.o Panel_qml.cpp
+Board_qml.o: Board_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Board_qml.o Board_qml.cpp
 
 Memo2_qml.o: Memo2_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Memo2_qml.o Memo2_qml.cpp
 
+Cell_qml.o: Cell_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Cell_qml.o Cell_qml.cpp
+
+CustomBtn_qml.o: CustomBtn_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CustomBtn_qml.o CustomBtn_qml.cpp
+
+Memo4_qml.o: Memo4_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Memo4_qml.o Memo4_qml.cpp
+
+ScoreBoard_qml.o: ScoreBoard_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ScoreBoard_qml.o ScoreBoard_qml.cpp
+
+GameOverWnd_qml.o: GameOverWnd_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameOverWnd_qml.o GameOverWnd_qml.cpp
+
+CardWindow_qml.o: CardWindow_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CardWindow_qml.o CardWindow_qml.cpp
+
+OptionsWnd_qml.o: OptionsWnd_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OptionsWnd_qml.o OptionsWnd_qml.cpp
+
+Time1_qml.o: Time1_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Time1_qml.o Time1_qml.cpp
+
+Time2_qml.o: Time2_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Time2_qml.o Time2_qml.cpp
+
+Panel_qml.o: Panel_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Panel_qml.o Panel_qml.cpp
+
+Time4_qml.o: Time4_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Time4_qml.o Time4_qml.cpp
+
+My2048_qml.o: My2048_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o My2048_qml.o My2048_qml.cpp
+
+Weather1_qml.o: Weather1_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weather1_qml.o Weather1_qml.cpp
+
+Weather2_qml.o: Weather2_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weather2_qml.o Weather2_qml.cpp
+
+Weather4_qml.o: Weather4_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weather4_qml.o Weather4_qml.cpp
+
+main_qml.o: main_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main_qml.o main_qml.cpp
+
+Clock_rect_qml.o: Clock_rect_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Clock_rect_qml.o Clock_rect_qml.cpp
+
+Card_qml.o: Card_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card_qml.o Card_qml.cpp
+
+script_logic_js.o: script_logic_js.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o script_logic_js.o script_logic_js.cpp
+
 script_my_f_js.o: script_my_f_js.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o script_my_f_js.o script_my_f_js.cpp
+
+script_other_js.o: script_other_js.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o script_other_js.o script_other_js.cpp
 
 qmlcache_loader.o: qmlcache_loader.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qmlcache_loader.o qmlcache_loader.cpp

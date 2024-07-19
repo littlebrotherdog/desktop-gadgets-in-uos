@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.1
+import QtQuick.Window 2.2
+import QtQuick.Particles 2.0
 import "script/my_f.js" as Weather
 
 Rectangle {
@@ -59,10 +61,10 @@ Rectangle {
         transitions: Transition: {
                 //ColorAnimation { duration: 1000 }
             }
-        Weather.setCityName(command.city_name)
-        Weather.setrandom(0)
-        Weather.parse_JS_1()
-        Weather.parse_JS_5()
+        Weather.set_name(command.city_name);
+        Weather.setrandom(0);
+        Weather.parse_JS_1();
+        Weather.parse_JS_5();
     }
 
     Flipable {
@@ -78,7 +80,8 @@ Rectangle {
         }
 
         anchors.fill: parent
-        property bool flipped: set_flag
+        property bool flipped: auto_break
+        property bool is
 
         front:
 
@@ -88,23 +91,23 @@ Rectangle {
                 color: "transparent"
                 Image {
                     id: weather_icon
-                    height: 19
+                    height: 21
                     fillMode: Image.PreserveAspectFit
-                    source: cityWeatherIcon
+                    source: city_W
 
                     MouseArea {
                        anchors.fill: parent
-                       drag.target: rect
+                       //drag.target: rect
                        drag.axis: Drag.XAxis
                        drag.minimumX: 0
-                       drag.maximumX: container.width - rect.width
+                       //drag.maximumX: container.width - rect.width
                     }
 
                     anchors.bottom: description_text.top
                     anchors.top: parent.top
-                    anchors.topMargin: 4
+                    anchors.topMargin: 8
                     anchors.right: parent.right
-                    anchors.rightMargin: 16
+                    anchors.rightMargin: 15
                     visible: true
                 }
 
@@ -120,49 +123,42 @@ Rectangle {
                 }
 
                 Text {
-                font.pointSize: 27// 文字大小为27
-                color: "white" // 文字颜色为白色
-                text: qsTr(cityTemperature) // 设置文字为城市温度
+                    font.pointSize: 28// 文字大小为28
+                    color: "white" // 文字颜色为白色
+                    text: qsTr(city_T) // 设置文字为城市温度
 
-                id: temp_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
-                anchors.left: city_txt.left // 水平左对齐到城市名称的左边
-                y: 17 // 上下居中对齐
+                    id: temp_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
+                    anchors.left: city_txt.left // 水平左对齐到城市名称的左边
+                    y: 15 // 上下居中对齐
                 }
 
                 Text {
-                id: description_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
-                font.pointSize: 11// 文字大小为11
-                color: "white" // 文字颜色为白色
-                text: qsTr(cityDescription) // 设置文字为城市描述
+                    id: description_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
+                    font.pointSize: 11// 文字大小为11
+                    color: "white" // 文字颜色为白色
+                    text: qsTr(city_D) // 设置文字为城市描述
 
-                anchors.bottom: double_text.top // 底部对齐到 double_text 的顶部
-                anchors.right: weather_icon.right // 右边对齐到天气图标的右边
+                    anchors.bottom: double_text.top // 底部对齐到 double_text 的顶部
+                    anchors.right: weather_icon.right // 右边对齐到天气图标的右边
                 }
 
                 Text {
-                id: double_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
-                font.pointSize: 11// 文字大小为11
-                color: "white" // 文字颜色为白色
-                text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity) // 设置文字为气压和相对湿度
+                    id: double_text // 给这个 Text 组件设置一个 ID，方便其他地方引用
+                    font.pointSize: 11// 文字大小为11
+                    color: "white" // 文字颜色为白色
+                    text: qsTr("气压:" + pressure + "&"+ "相对湿度:" + humidity) // 设置文字为气压和相对湿度
 
-                anchors.bottom: temp_text.bottom // 底部对齐到温度文字的底部
-                anchors.right: parent.right // 右边对齐到父组件的右边
-                anchors.bottomMargin: 0 // 底部边距为0
-                anchors.rightMargin: 10 // 右边距为10个像素
+                    anchors.bottom: temp_text.bottom // 底部对齐到温度文字的底部
+                    anchors.right: parent.right // 右边对齐到父组件的右边
+                    anchors.bottomMargin: 0 // 底部边距为0
+                    anchors.rightMargin: 10 // 右边距为10个像素
                 }
 
                 DropShadow {
-                anchors.fill: weather_icon // 阴影大小和天气图标一致
-                horizontalOffset: 3 // 阴影水平偏移为3个像素
-                verticalOffset: 3 // 阴影垂直偏移为3个像素
+                    anchors.fill: weather_icon // 阴影大小和天气图标一致
+                    horizontalOffset: 3 // 阴影水平偏移为3个像素
+                    verticalOffset: 3 // 阴影垂直偏移为3个像素
 
-                MouseArea { // 鼠标区域
-                       anchors.fill: parent // 占满整个父组件
-                       drag.target: rect // 拖动的目标为矩形框
-                       drag.axis: Drag.XAxis // 只允许水平方向拖动
-                       drag.minimumX: 0 // 拖动的最小位置
-                       drag.maximumX: container.width - rect.width
-                    }
 
                     spread :0.1
                     radius: 5
@@ -172,26 +168,18 @@ Rectangle {
                 }
 
                 Rectangle {
-                id :v1 // 第一个矩形的ID为"v1"
-                width: parent.width - 28 // 设置矩形的宽度为父级宽度减去28
-                height: 1 // 设置矩形的高度为1
-                opacity: 0.5 // 设置矩形的不透明度为0.5
-                color: "white" // 设置矩形的颜色为白色
-                anchors.horizontalCenter: parent.horizontalCenter // 水平居中对齐到父级
-                y: 85 // 设置矩形的y坐标为85
-                anchors.topMargin: 20 // 定位到上边缘的距离为20
+                    id :v1 // 第一个矩形的ID为"v1"
+                    width: parent.width - 28 // 设置矩形的宽度为父级宽度减去28
+                    height: 1 // 设置矩形的高度为1
+                    opacity: 0.5 // 设置矩形的不透明度为0.5
+                    color: "white" // 设置矩形的颜色为白色
+                    anchors.horizontalCenter: parent.horizontalCenter // 水平居中对齐到父级
+                    y: 85 // 设置矩形的y坐标为85
+                    anchors.topMargin: 20 // 定位到上边缘的距离为20
                 }
 
             Rectangle {
                 id: choice
-
-                MouseArea { // 添加一个鼠标区域
-                anchors.fill: parent // 将鼠标区域的大小设置为与父级相同
-                drag.target: rect // 将拖动操作的目标设置为矩形
-                drag.axis: Drag.XAxis // 设置仅允许水平拖动
-                drag.minimumX: 0 // 设置拖动的最小值为0
-                drag.maximumX: container.width - rect.width // 设置拖动的最大值为容器的宽度减去矩形的宽度
-                }
                 Row { // 添加一个行布局
                 Repeater { // 添加一个重复器
                 model: weather_model // 将重复器的模型设置为weather_model
@@ -215,10 +203,10 @@ Rectangle {
 
                                 MouseArea {
                                    anchors.fill: parent
-                                   drag.target: rect
+                                   //drag.target: rect
                                    drag.axis: Drag.XAxis
                                    drag.minimumX: 0
-                                   drag.maximumX: container.width - rect.width
+                                   //drag.maximumX: container.width - rect.width
                                 }
 
                                 font.pointSize: 11
@@ -276,11 +264,12 @@ Rectangle {
 
                 MouseArea {
                    anchors.fill: parent
-                   drag.target: rect
+                   //drag.target: rect
                    drag.axis: Drag.XAxis
                    drag.minimumX: 0
                    drag.maximumX: container.width - rect.width
                 }
+
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: 11
@@ -338,7 +327,7 @@ Rectangle {
 
                                 MouseArea {
                                    anchors.fill: parent
-                                   drag.target: rect
+                                   //drag.target: rect
                                    drag.axis: Drag.XAxis
                                    drag.minimumX: 0
                                    drag.maximumX: container.width - rect.width
@@ -367,39 +356,34 @@ Rectangle {
             anchors.fill: parent
             color: "transparent"
             radius: 18
+            property bool tracer: false
 
-            TextField{
-                id: text_new
-                height: 27
-                width: 42
-
-                text: qsTr(command.city_name)
-                font.pointSize: 11
-                color: "black"
-                focus: true
-
-                MouseArea {
-                   anchors.fill: parent
-                   drag.target: rect
-                   drag.axis: Drag.XAxis
-                   drag.minimumX: 0
-                   drag.maximumX: container.width - rect.width
-                }
-
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: title_label.bottom
-                anchors.topMargin: 5
-
+            ParticleSystem {
+                id: particleSystem
             }
 
-            Label {
-                id: title_label
-                color: "white"
-                anchors.horizontalCenter: parent.horizontalCenter
-                y:81
-                font.pointSize: 18
-                text: qsTr("Please set your city")
-            }      
+            ImageParticle {
+                id: rocketPainter
+                system: particleSystem
+                groups: ['rocket']
+                source: "image/rock.svg"
+                entryEffect: ImageParticle.Fade
+            }
+
+            Emitter {
+                id: rocketEmitter
+                anchors.bottom: parent.bottom
+                width: parent.width; height: 40
+                system: particleSystem
+                group: 'rocket'
+                emitRate: 2
+                maximumEmitted: 8
+                lifeSpan: 4800
+                lifeSpanVariation: 400//lifeSpan
+                size: 128
+                velocity: AngleDirection { angle: 270; magnitude: 150; magnitudeVariation: 10 }
+                acceleration: AngleDirection { angle: 90; magnitude: 50 }
+            }
         }
 
         transform: Rotation {
@@ -418,25 +402,25 @@ Rectangle {
 
             // A rectangle element that serves as the button UI
             Rectangle {
-            id: button
-            x: 12; y: 12
-            width: 116; height: 26
-            color: "lightsteelblue"
-            border.color: "slategrey"
+                id: button
+                x: 12; y: 12
+                width: 116; height: 26
+                color: "lightsteelblue"
+                border.color: "slategrey"
 
-            Text {
-            id: label
-            anchors.centerIn: parent
-            text: "Start"
-            }
+                Text {
+                    id: label
+                    anchors.centerIn: parent
+                    text: "Start"
+                }
 
             // A MouseArea element that handles the button clicks
-            MouseArea {
-            anchors.fill: parent
-            onClicked: {
-            root.clicked() // Emit the 'clicked' signal when the button is clicked
-            }
-            }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                    root.clicked() // Emit the 'clicked' signal when the button is clicked
+                    }
+                }
             }
 
             Text {
@@ -455,34 +439,36 @@ Rectangle {
 
             // A Timer element that triggers the Weather API calls every second
             Timer {
-            interval: 1000
-            repeat: true
-            running: true
-            triggeredOnStart: true
-            onTriggered: {
-            Weather.parse_JS_1()
-            Weather.parse_JS_5()
-            }
+                interval: 1000
+                repeat: true
+                running: true
+                triggeredOnStart: true
+                onTriggered: {
+                    Weather.set_name(command.city_name);
+                    Weather.parse_JS_1();
+                    Weather.parse_JS_5();
+                }
             }
 
             // A Connections element that listens to the 'onSetBtnClicked' signal from 'card_window'
             Connections {
-            target: card_window
-            onSetBtnClicked: {
-            command.city_name = text_new.text
-            Weather.setCityName(command.city_name)
-            Weather.parse_JS_1()
-            Weather.parse_JS_5()
-            }
+                target: card_window
+                onSetBtnClicked: {
+
+                    Weather.set_name(command.city_name);
+                    Weather.parse_JS_1();
+                    Weather.parse_JS_5();
+
+                }
             }
 
             // A Component.onDestruction handler that logs the content of 'command.memo_all_txt' to the console
             Component.onDestruction: {
-            var cnt=0;
-            for(var i = 0; i < command.memo_all_txt.length; i++) {
-            console.log(command.memo_all_txt[i]);
-            }
-            console.log("yessssssss!")
+                var cnt=0;
+                for(var i = 0; i < command.memo_all_txt.length; i++) {
+                    console.log(command.memo_all_txt[i]);
+                }
+                console.log("yessssssss!");
             }
         }
     }

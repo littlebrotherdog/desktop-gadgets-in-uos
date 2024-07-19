@@ -52,7 +52,6 @@ Rectangle {
         front:
 
         Rectangle {
-            id: listview_rect // 设置组件的ID
 
             Component { // 声明一个组件
             id: text_delegate // 设置组件的ID
@@ -76,21 +75,21 @@ Rectangle {
             }
 
             Image { // 声明一个图片
-            id: delete_brn // 设置图片的ID
+            id: del // 设置图片的ID
             source: "qrc:/image/delete.svg" // 设置图片的资源路径
 
             MouseArea { // 声明一个鼠标区域
             anchors.fill: parent // 鼠标区域的大小与图片相同
-            onClicked: { // 设置鼠标单击事件
-            console.log("delete") // 打印调试信息
-            memo_my_birth.splice(index, 1) // 从数组中删除当前项
-            text_model.clear() // 清空文本模型
-            for(var i = 0; i < memo_my_birth; i++) { // 遍历数组并添加到文本模型中
-            text_model.append(memo_my_birth[i])
-            }
-            command.memo_all_txt = memo_my_birth // 更新数据
-            memoDataChanged() // 触发数据更新事件
-            }
+                onClicked: { // 设置鼠标单击事件
+                    console.log("delete") // 打印调试信息
+                    memo_my_birth.splice(index, 1) // 从数组中删除当前项
+                    text_model.clear() // 清空文本模型
+                    for(var i = 0; i < memo_my_birth; i++) { // 遍历数组并添加到文本模型中
+                    text_model.append(memo_my_birth[i])
+                }
+                command.memo_all_txt = memo_my_birth // 更新数据
+                memoDataChanged() // 触发数据更新事件
+                }
             }
 
             width: 18 // 设置图片的宽度和高度
@@ -155,7 +154,7 @@ Rectangle {
             color: "transparent"
 
             Label {
-                id: title_label
+                id: title_lab
                 color: "black"
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:30
@@ -165,11 +164,11 @@ Rectangle {
             }
 
             Rectangle {
-                id: text_rect
+                id: text_rec
                 width: 175
                 height: 28
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: title_label.bottom
+                anchors.top: title_lab.bottom
                 anchors.topMargin: 20
                 border.color: "#FF7F50"
                 radius: 4
@@ -181,14 +180,16 @@ Rectangle {
                     anchors.right: parent.right
                     width: parent.width
                     text: qsTr("")
+
                     wrapMode: TextEdit.WrapAnywhere
                     font.pointSize: 12
                     anchors.leftMargin: 8
                     anchors.rightMargin: 8
+
                     color: "black"
                     selectByMouse: true
                     activeFocusOnPress: true
-                    focus: true
+                    //focus: true
                 }
             }
 
@@ -261,14 +262,14 @@ Rectangle {
             target: card_window
 
             onSetBtnClicked: {
-                if(set_flag === false && text_edit.text !== "") {
-                    memo_my_birth.push({"mText": text_edit.text})
-                    text_model.append(memo_my_birth[memo_my_birth.length - 1])
-                    text_edit.text = ""
-                    memoDataChanged()
-                    command.memo_all_txt = memo_my_birth
+                if(auto_break === false && text_edit.text !== "") {
+                    memo_my_birth.push({"mText": text_edit.text});
+                    text_model.append(memo_my_birth[memo_my_birth.length - 1]);
+                    text_edit.text = "";
+                    memoDataChanged();
+                    command.memo_all_txt = memo_my_birth;
                 }
-                else command.memo_all_txt = memo_my_birth
+                else command.memo_all_txt = memo_my_birth;
             }
         }
 
@@ -278,14 +279,13 @@ Rectangle {
                 console.log(command.memo_all_txt[i]);
             }
 
-            console.log("yessssssss!")
+            console.log("yessssssss!");
         }
 
         width: parent.width
         height: parent.height - memo_title.height
         anchors.top: memo_title.bottom
-        property bool flipped: set_flag
-
+        property bool flipped: auto_break
 
     }
 

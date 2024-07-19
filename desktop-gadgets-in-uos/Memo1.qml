@@ -146,16 +146,16 @@ Rectangle {
     }
 
     Rectangle {
-    id: memo_title
-    width: parent.width
-    height: 26
-    color: "#D2691E" // 橙色
-    Label {
-    anchors.verticalCenter: parent.verticalCenter // 标签垂直居中
-    x:5 // 水平位置
-    color: "white" // 字体颜色
-    font.pointSize: 15 // 字体大小
-    text: qsTr("memo") // 标签文本
-    }
+        id: memo_title
+        width: parent.width
+        height: 26
+        color: "#D2691E" // 橙色
+        Label {
+            anchors.verticalCenter: parent.verticalCenter // 标签垂直居中
+            x:5 // 水平位置
+            color: "white" // 字体颜色
+            font.pointSize: 15 // 字体大小
+            text: qsTr("memo") // 标签文本
+        }
     }
 }

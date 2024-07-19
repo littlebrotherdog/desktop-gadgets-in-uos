@@ -3,6 +3,9 @@ import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.4
+import QtQuick 2.8
+import QtQuick.Window 2.2
+import QtQuick.Particles 2.0
 
 Rectangle {
     id: card_t4
@@ -47,6 +50,8 @@ Rectangle {
         GradientStop {position: 0.0; color: "#00BFFF"}
         GradientStop {position: 1.0; color: "#4169E1"}
     }
+
+    property var dij: 0
 
     Flipable {
         id: flipable
@@ -108,25 +113,7 @@ Rectangle {
                 repeat: true
                 running: true
                 triggeredOnStart: true
-                /*MouseArea {
-                         anchors.fill: parent
-                         drag.target: rect
-                         drag.axis: Drag.XAxis
-                         drag.minimumX: 0
-                         drag.maximumX: container.width - rect.width
-                         drag.filterChildren:false
-                         Rectangle{
-                            id:childrenRectangle
-                            color: "blue"
-                            width: 30; height: 30
-                            anchors.bottom: rect.bottom
-                            anchors.right: rect.right
-                            MouseArea {
-                               anchors.fill: parent
-                               onPressed: console.log("123");
-                         }
-                     }
-                 }*/
+
                 onTriggered: {
                     var date = Qt.formatDateTime(new Date(), "yyyy年M月d日 dddd")
                     t_label1.text = date
@@ -146,71 +133,62 @@ Rectangle {
             anchors.fill: parent // 矩形填充整个父组件
             border.color: "#afb0b2" // 边框颜色
             border.width: 0 // 边框宽度
-            gradient: Gradient { // 背景渐变
-            GradientStop {position: 0.0; color: "#00BFFF"}
-            GradientStop {position: 1.0; color: "#4169E1"}
-            }
-            Label { // 标题标签
-            id: title_label
-            color: "white"
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 80 // 距离父组件上边界80像素
-            font.family: "Arial"
-            font.pointSize: 18
-            text: qsTr("Please set your slogan")
+                gradient: Gradient { // 背景渐变
+                    GradientStop {position: 0.0; color: "#00BFFF"}
+                    GradientStop {position: 1.0; color: "#4169E1"}
+                }
+                    //粒子发射系统
+                    ParticleSystem {
+                        id: particleSystem
+                    }
+
+                    Emitter {
+                        id: emitter
+                        anchors.centerIn: parent
+                        //发射范围
+                        width: 240; height: 240
+                        system: particleSystem
+                        //粒子的发射频率,粒子存在的周期
+                        emitRate: 60
+                        lifeSpan: 1000
+                        //生命周期变化的速度
+                        lifeSpanVariation: 500
+                        //粒子的大小和结束的大小
+                        size: 16
+                        endSize: 64
+                    }
+                    //粒子的类型
+                    ImageParticle {
+                        source: "image/water-level.svg"
+                        system: particleSystem
+                    }
             }
 
-            TextEdit { // 文本编辑框
-            id: text_edit
-            width: contentWidth // 宽度为父组件的宽度
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: title_label.bottom
-            anchors.topMargin: 20 // 距离标题标签下边界20像素
-            text: qsTr(command.timer_word) // 显示计时器文本
-            font.family: "Arial"
-            font.pointSize: 14
-            color: "white"
-            focus: true
-            activeFocusOnPress: true
-            cursorVisible: true
-            }
-            }
-
-            transform: Rotation { // 翻转动画
+            transform: Rotation { // 动画
             id: rot
-            origin.x: flipable.width >> 1 // 旋转中心x坐标为翻转组件宽度的一半
-            origin.y: flipable.height >> 1 // 旋转中心y坐标为翻转组件高度的一半
-            axis.x: 0; axis.y: 1; axis.z: 0 // 绕y轴翻转
+            origin.x: flipable.width >> 1 // 旋转中心x坐标为组件宽度的一半
+            origin.y: flipable.height >> 1 // 旋转中心y坐标为组件高度的一半
+            axis.x: 0; axis.y: 1; axis.z: 0 // 绕y轴
             angle: 0 // 初始角度为0度
             }
 
             states: State { // 状态
-            name: "back"
-            PropertyChanges {
-            target: rot;
-            angle: 180 // 翻转后角度为180度
-            }
-            when: flipable.flipped // 翻转组件翻转时激活状态
-            }
-
-            transitions: Transition { // 翻转动画的过渡效果
-            NumberAnimation { target: rot; property: "angle"; duration: 1 } // 旋转动画
-            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad } // 平移动画
-            ColorAnimation { duration: 1000 } // 颜色动画
+                name: "back"
+                PropertyChanges {
+                target: rot;
+                angle: 180 // 角度为180度
+                }
+                when: flipable.flipped // 激活状态
             }
 
-        Connections {
-            target: card_window
-            //target: area function()
-            //onClicked(mouse) { foo(mouse) }
-            onSetBtnClicked: {
-                command.timer_word = text_edit.text
+            transitions: Transition { // 动画的过渡效果
+                NumberAnimation { target: rot; property: "angle"; duration: 1 } // 旋转动画
+                NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad } // 平移动画
+                ColorAnimation { duration: 1000 } // 颜色动画
             }
-        }
 
         anchors.fill: parent
-        property bool flipped: set_flag
-
+        property bool flipped: auto_break
     }
 
     Component.onDestruction: {
@@ -218,7 +196,7 @@ Rectangle {
         for(var i = 0; i < command.memo_all_txt.length; i++) {
             console.log(command.memo_all_txt[i]);
         }
-        console.log("yessssssss!")
+        console.log("yessssssss!");
     }
 
     width: 240

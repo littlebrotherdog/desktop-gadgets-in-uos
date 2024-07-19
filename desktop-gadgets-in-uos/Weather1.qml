@@ -60,7 +60,7 @@ Rectangle {
         transitions: Transition: {
                 //ColorAnimation { duration: 1000 }
             }
-        Weather.setCityName(command.city_name)
+        Weather.set_name(command.city_name)
         Weather.setrandom(0)
         Weather.parse_JS_1()
         Weather.parse_JS_5()
@@ -94,7 +94,7 @@ Rectangle {
 
                 height: 18
                 fillMode: Image.PreserveAspectFit
-                source: cityWeatherIcon
+                source: city_W
                 y: 66
 
 
@@ -108,8 +108,8 @@ Rectangle {
                 text: qsTr(command.city_name)
 
                 anchors.left: parent.left
-                anchors.leftMargin: 15
-                y: 11
+                anchors.leftMargin: 14
+                y: 9
                 color: "white"
 
                 //cache :true
@@ -120,7 +120,7 @@ Rectangle {
                 id: temp_text
                 font.pointSize: 28
                 color: "white"
-                text: qsTr(cityTemperature)
+                text: qsTr(city_T)
 
                 anchors.left: city_txt.left
                 y: 15
@@ -131,7 +131,7 @@ Rectangle {
                 id: description_txt
                 font.pointSize: 11
                 color: "white"
-                text: qsTr(cityDescription)
+                text: qsTr(city_D)
 
                 y: 85
                 anchors.left: weather_icon.left
@@ -169,58 +169,58 @@ Rectangle {
             // 创建一个矩形控件
             Rectangle {
             // 设置矩形控件填充父控件
-            anchors.fill: parent
+                anchors.fill: parent
             // 设置矩形控件颜色为透明
-            color: "transparent"
+                color: "transparent"
             // 设置矩形控件圆角半径为18
-            radius: 18
+                radius: 18
 
             // 创建一个标签控件
-            Label {
+                Label {
             // 设置标签控件的ID
-            id: title_set
+                    id: title_set
             // 设置标签控件文本颜色为白色
-            color: "white"
+                    color: "white"
             // 设置标签控件水平居中于父控件
-            anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
             // 设置标签控件垂直偏移量为24
-            y: 24
+                    y: 24
             // 设置标签控件文本字体大小为14
-            font.pointSize: 14
+                    font.pointSize: 14
             // 设置标签控件文本内容
-            text: qsTr("Please set your city")
-            }
+                    text: qsTr("Please set your city")
+                }
 
             // 创建一个文本框控件
-            TextField{
+                TextField{
             // 设置文本框控件的ID
-            id: text_new
+                    id: text_new
             // 设置文本框控件高度为27
-            height: 27
+                    height: 27
             // 设置文本框控件宽度为42
-            width: 42
-            // 设置文本框控件背景为透明（已注释掉）
+                    width: 42
+            // 设置文本框控件背景为透明
             // background: transperent
-            // 设置文本框控件启用缓存（已注释掉）
+            // 设置文本框控件启用缓存
             // cache :true
-            // 设置文本框控件平滑处理（已注释掉）
+            // 设置文本框控件平滑处理
             smooth: true
 
             // 设置文本框控件水平居中于父控件
-            anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
             // 设置文本框控件顶部与标签控件底部对齐
-            anchors.top: title_set.bottom
+                    anchors.top: title_set.bottom
             // 设置文本框控件与标签控件的垂直距离为5
-            anchors.topMargin: 5
+                    anchors.topMargin: 5
             // 设置文本框控件的默认文本内容为当前城市名称
-            text: qsTr(command.city_name)
+                    text: qsTr(command.city_name)
             // 设置文本框控件文本字体大小为11
-            font.pointSize: 11
+                    font.pointSize: 11
             // 设置文本框控件文本颜色为黑色
-            color: "black"
+                    color: "black"
             // 设置文本框控件获取焦点
-            focus: true
-            }
+                    //focus: true
+                }
             }
 
 
@@ -262,7 +262,7 @@ Rectangle {
         }
 
         anchors.fill: parent
-        property bool flipped: set_flag
+        property bool flipped: auto_break
 
         Text {
             visible: false
@@ -279,8 +279,9 @@ Rectangle {
 
         Timer {
             onTriggered: {
-                Weather.parse_JS_1()
-                Weather.parse_JS_5()
+                Weather.set_name(command.city_name);
+                Weather.parse_JS_1();
+                Weather.parse_JS_5();
             }
 
             interval: 1000
@@ -293,10 +294,10 @@ Rectangle {
         Connections {
             target: card_window
             onSetBtnClicked: {
-                command.city_name = text_new.text
-                Weather.setCityName(command.city_name)
-                Weather.parse_JS_1()
-                Weather.parse_JS_5()
+                command.city_name = text_new.text;
+                Weather.set_name(command.city_name);
+                Weather.parse_JS_1();
+                Weather.parse_JS_5();
             }
         }
 
@@ -305,7 +306,7 @@ Rectangle {
             for(var i = 0; i < command.memo_all_txt.length; i++) {
                 console.log(command.memo_all_txt[i]);
             }
-            console.log("yessssssss!")
+            console.log("yessssssss!");
         }
 
     }

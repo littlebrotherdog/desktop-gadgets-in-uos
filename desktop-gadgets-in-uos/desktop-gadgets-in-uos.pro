@@ -29,3 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # 指定头文件
 HEADERS += \
 timer.h
+
+DISTFILES +=

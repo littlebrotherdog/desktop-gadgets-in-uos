@@ -5,6 +5,8 @@ import Qt.labs.settings 1.0
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
+import QtQuick.Controls.Styles 1.4
+import "script/logic.js" as Logic
 
 
 Window {
@@ -21,6 +23,26 @@ Window {
     y: 120
     // 窗口标题
     title: qsTr("desktop-gadgets-in-uos")
+    MouseArea{
+         anchors.fill: parent
+         onClicked: {
+            is_2048.visible=true
+        }
+    }
+
+    My2048 {
+           id :is_2048
+           visible: false
+           width: 248
+           // 窗口高度
+           height: 96
+           // 窗口在屏幕上的x坐标
+           x: 240
+           // 窗口在屏幕上的y坐标
+           y: 120
+           title: qsTr("2048")
+    }
+
 
     // 定义属性
     // 下面是一些自定义的属性
@@ -35,6 +57,7 @@ Window {
     property var memo_my_birth: []
     // 定义信号，用于在属性变化时发出通知
     signal memoDataChanged()
+    signal is_2048()
 
     // 窗口中包含的元素
     Item {
@@ -132,22 +155,23 @@ Window {
 
     property string city_name: qsTr("北京市") // 城市名称属性，初始值为 "北京市"
 
+
     Component.onCompleted: {
-    cache: true // 启用缓存
-    smooth: true // 启用平滑过渡
-    for(var i = 0; i < command.memo_all_txt.length;i++) {
-    memo_my_birth.push(command.memo_all_txt[i]); // 将备忘录内容添加到 memo_my_birth 数组中
-    }
+        cache: true // 启用缓存
+        smooth: true // 启用平滑过渡
+        for(var i = 0; i < command.memo_all_txt.length;i++) {
+            memo_my_birth.push(command.memo_all_txt[i]); // 将备忘录内容添加到 memo_my_birth 数组中
+        }
     }
 
     Component.onDestruction: {
-    cache: true // 启用缓存
-    smooth: true // 启用平滑过渡
-    var cnt=0;
-    for(var i = 0; i < command.memo_all_txt.length; i++) {
-    console.log(command.memo_all_txt[i]); // 输出备忘录内容
-    }
-    console.log("yessssssss!") // 输出确认信息
-    }
+        cache: true // 启用缓存
+        smooth: true // 启用平滑过渡
+        var cnt=0;
+        for(var i = 0; i < command.memo_all_txt.length; i++) {
+            console.log(command.memo_all_txt[i]); // 输出备忘录内容
+        }
+        console.log("yessssssss!") // 输出确认信息
+        }
     }
 }

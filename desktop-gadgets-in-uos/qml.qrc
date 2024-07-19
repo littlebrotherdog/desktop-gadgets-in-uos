@@ -25,6 +25,19 @@
         <file>image/13.gif</file>
         <file>image/ghost.gif</file>
         <file>Clock_rect.qml</file>
+        <file>image/water-level.svg</file>
+        <file>image/like.svg</file>
+        <file>image/rock.svg</file>
+        <file>image/blossom.svg</file>
+        <file>Board.qml</file>
+        <file>Cell.qml</file>
+        <file>CustomBtn.qml</file>
+        <file>GameOverWnd.qml</file>
+        <file>OptionsWnd.qml</file>
+        <file>ScoreBoard.qml</file>
+        <file>script/logic.js</file>
+        <file>script/other.js</file>
+        <file>My2048.qml</file>
     </qresource>
     <qresource prefix="/new/prefix1"/>
 </RCC>

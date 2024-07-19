@@ -11,5 +11,10 @@
         <file alias="image/time1">../desktop-gadgets-in-uos/image/time1</file>
         <file alias="image/13.gif">../desktop-gadgets-in-uos/image/13.gif</file>
         <file alias="image/ghost.gif">../desktop-gadgets-in-uos/image/ghost.gif</file>
+        <file alias="image/water-level.svg">../desktop-gadgets-in-uos/image/water-level.svg</file>
+        <file alias="image/like.svg">../desktop-gadgets-in-uos/image/like.svg</file>
+        <file alias="image/rock.svg">../desktop-gadgets-in-uos/image/rock.svg</file>
+        <file alias="image/blossom.svg">../desktop-gadgets-in-uos/image/blossom.svg</file>
     </qresource>
+    <qresource prefix="/new/prefix1"/>
 </RCC>

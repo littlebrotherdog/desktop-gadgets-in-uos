@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_VIRTUALKEYBOARD_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../desktop-gadgets-in-uos -I. -I../../../Qt5.12.9/5.12.9/gcc_64/include -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtVirtualKeyboard -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtQuick -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtGui -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtQml -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtNetwork -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../desktop-gadgets-in-uos -I. -I../../../Qt5.12.9/5.12.9/gcc_64/include -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtQuick -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtGui -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtQml -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtNetwork -I../../../Qt5.12.9/5.12.9/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/uos/Qt5.12.9/5.12.9/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = desktop-gadgets-in-uos1.0.0
 DISTDIR = /home/uos/Desktop/ans/build-desktop-gadgets-in-uos-Desktop_Qt_5_12_9_GCC_64bit-Debug/.tmp/desktop-gadgets-in-uos1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/uos/Qt5.12.9/5.12.9/gcc_64/lib
-LIBS          = $(SUBLIBS) /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5VirtualKeyboard.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Quick.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Gui.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Qml.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Network.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Quick.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Gui.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Qml.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Network.so /home/uos/Qt5.12.9/5.12.9/gcc_64/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,8 +52,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../desktop-gadgets-in-uos/main.cpp qrc_qml.cpp
+SOURCES       = ../desktop-gadgets-in-uos/main.cpp \
+		../desktop-gadgets-in-uos/timer.cpp qrc_qml.cpp
 OBJECTS       = main.o \
+		timer.o \
 		qrc_qml.o
 DIST          = ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/common/unix.conf \
@@ -229,6 +231,7 @@ DIST          = ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_post.prf \
+		../desktop-gadgets-in-uos/.qmake.stash \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/default_pre.prf \
@@ -247,7 +250,8 @@ DIST          = ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/lex.prf \
-		../desktop-gadgets-in-uos/desktop-gadgets-in-uos.pro  ../desktop-gadgets-in-uos/main.cpp
+		../desktop-gadgets-in-uos/desktop-gadgets-in-uos.pro ../desktop-gadgets-in-uos/timer.h ../desktop-gadgets-in-uos/main.cpp \
+		../desktop-gadgets-in-uos/timer.cpp
 QMAKE_TARGET  = desktop-gadgets-in-uos
 DESTDIR       = 
 TARGET        = desktop-gadgets-in-uos
@@ -433,6 +437,7 @@ Makefile: ../desktop-gadgets-in-uos/desktop-gadgets-in-uos.pro ../../../Qt5.12.9
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/default_pre.prf \
@@ -628,6 +633,7 @@ Makefile: ../desktop-gadgets-in-uos/desktop-gadgets-in-uos.pro ../../../Qt5.12.9
 ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/qt_config.prf:
 ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/toolchain.prf:
 ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/default_pre.prf:
@@ -664,7 +670,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt5.12.9/5.12.9/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/timer.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../desktop-gadgets-in-uos/main.cpp ../desktop-gadgets-in-uos/timer.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -693,7 +700,44 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_qml.cpp
 qrc_qml.cpp: ../desktop-gadgets-in-uos/qml.qrc \
 		../../../Qt5.12.9/5.12.9/gcc_64/bin/rcc \
-		../desktop-gadgets-in-uos/main.qml
+		../desktop-gadgets-in-uos/Memo1.qml \
+		../desktop-gadgets-in-uos/Board.qml \
+		../desktop-gadgets-in-uos/Memo2.qml \
+		../desktop-gadgets-in-uos/Cell.qml \
+		../desktop-gadgets-in-uos/CustomBtn.qml \
+		../desktop-gadgets-in-uos/Memo4.qml \
+		../desktop-gadgets-in-uos/ScoreBoard.qml \
+		../desktop-gadgets-in-uos/GameOverWnd.qml \
+		../desktop-gadgets-in-uos/CardWindow.qml \
+		../desktop-gadgets-in-uos/OptionsWnd.qml \
+		../desktop-gadgets-in-uos/Time1.qml \
+		../desktop-gadgets-in-uos/Time2.qml \
+		../desktop-gadgets-in-uos/Panel.qml \
+		../desktop-gadgets-in-uos/Time4.qml \
+		../desktop-gadgets-in-uos/My2048.qml \
+		../desktop-gadgets-in-uos/Weather1.qml \
+		../desktop-gadgets-in-uos/Weather2.qml \
+		../desktop-gadgets-in-uos/Weather4.qml \
+		../desktop-gadgets-in-uos/main.qml \
+		../desktop-gadgets-in-uos/Clock_rect.qml \
+		../desktop-gadgets-in-uos/Card.qml \
+		../desktop-gadgets-in-uos/image/refresh.svg \
+		../desktop-gadgets-in-uos/image/zoom-in.svg \
+		../desktop-gadgets-in-uos/image/weather1 \
+		../desktop-gadgets-in-uos/image/water-level.svg \
+		../desktop-gadgets-in-uos/image/blossom.svg \
+		../desktop-gadgets-in-uos/image/power.svg \
+		../desktop-gadgets-in-uos/image/13.gif \
+		../desktop-gadgets-in-uos/image/like.svg \
+		../desktop-gadgets-in-uos/image/rock.svg \
+		../desktop-gadgets-in-uos/image/time1 \
+		../desktop-gadgets-in-uos/image/ghost.gif \
+		../desktop-gadgets-in-uos/image/zoom-out.svg \
+		../desktop-gadgets-in-uos/image/delete.svg \
+		../desktop-gadgets-in-uos/image/memo1 \
+		../desktop-gadgets-in-uos/script/logic.js \
+		../desktop-gadgets-in-uos/script/my_f.js \
+		../desktop-gadgets-in-uos/script/other.js
 	/home/uos/Qt5.12.9/5.12.9/gcc_64/bin/rcc -name qml ../desktop-gadgets-in-uos/qml.qrc -o qrc_qml.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -811,6 +855,9 @@ main.o: ../desktop-gadgets-in-uos/main.cpp ../../../Qt5.12.9/5.12.9/gcc_64/inclu
 		../../../Qt5.12.9/5.12.9/gcc_64/include/QtCore/qmetaobject.h \
 		../../../Qt5.12.9/5.12.9/gcc_64/include/QtQml/qqmlerror.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../desktop-gadgets-in-uos/main.cpp
+
+timer.o: ../desktop-gadgets-in-uos/timer.cpp ../desktop-gadgets-in-uos/timer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timer.o ../desktop-gadgets-in-uos/timer.cpp
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp

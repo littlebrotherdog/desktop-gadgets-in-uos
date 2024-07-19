@@ -87,27 +87,9 @@ Rectangle {
         running: true
 
         triggeredOnStart: true
-        /*MouseArea {
-                 anchors.fill: parent
-                 drag.target: rect
-                 drag.axis: Drag.XAxis
-                 drag.minimumX: 0
-                 drag.maximumX: container.width - rect.width
-                 drag.filterChildren:false
-                 Rectangle{
-                    id:childrenRectangle
-                    color: "blue"
-                    width: 30; height: 30
-                    anchors.bottom: rect.bottom
-                    anchors.right: rect.right
-                    MouseArea {
-                       anchors.fill: parent
-                       onPressed: console.log("123");
-                 }
-             }
-         }*/
 
         onTriggered: {
+
             var date = Qt.formatDateTime(new Date(), qsTr("hh:mm"))
             t_label1.text = date
             date = Qt.formatDateTime(new Date(), qsTr("yyyy年M月d日"))
@@ -118,11 +100,12 @@ Rectangle {
     }
 
     Component.onDestruction: {
+
         var cnt=0;
         for(var i = 0; i < command.memo_all_txt.length; i++) {
             console.log(command.memo_all_txt[i]);
         }
-        console.log("yessssssss!")
+        console.log("yessssssss!");
     }
 
     width: 120
