@@ -74,5 +74,5 @@
 |  内容  | 描述 | 链接 |
 |  ----  | ----  | ---- |
 |  成果演示   | 视频|链接: https://pan.baidu.com/s/1fQc9BJDOQ8PhyUiN_3m68w?pwd=bkr2 提取码: bkr2  |
-| 初赛报告文档 |  文档内容包括：设计思路、系统框架、实现重点、开发计划、开发过程中遇到的主要问题和解决方法 |https://gitlab.eduxiji.net/202310009111263/project1466467-175932/-/blob/main/%E5%88%9D%E8%B5%9B%E6%8A%A5%E5%91%8A%E6%96%87%E6%A1%A3.md |
-| 小组件开发手册 | 提供小部件开发手册，允许第三方按照规范开发自己的小部件 |https://gitlab.eduxiji.net/202310009111263/project1466467-175932/-/blob/main/%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C.md |
+| 初赛报告文档 |  文档内容包括：设计思路、系统框架、实现重点、开发计划、开发过程中遇到的主要问题和解决方法 |https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/%E5%88%9D%E8%B5%9B%E6%8A%A5%E5%91%8A%E6%96%87%E6%A1%A3.md|
+| 小组件开发手册 | 提供小部件开发手册，允许第三方按照规范开发自己的小部件 |https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C.md|
