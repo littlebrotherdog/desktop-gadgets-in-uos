@@ -24,7 +24,7 @@ Qt是面向对象的框架，使用特殊的代码生成扩展以及一些宏，
 
 ## 系统框架
 
-<div align=center><img src="display/系统框架.jpg" alt="系统框架" width = 50% height = 50% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/%E7%B3%BB%E7%BB%9F%E6%A1%86%E6%9E%B6.jpg" alt="系统框架" width = 50% height = 50% /></div>
 
 ## 开发计划
 
@@ -47,9 +47,9 @@ Qt是面向对象的框架，使用特殊的代码生成扩展以及一些宏，
 
 预期产出：显示当地天气（包括温度、风速、湿度等一系列数据），切换城市且尽量使效果美观。
 
-<div align=center><img src="display/display_weather_1.png" alt="天气" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_weather_1.png" alt="天气" width = 60% height = 60% /></div>
 
-<div align=center><img src="display/display_weather_2.png" alt="天气" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_weather_2.png" alt="天气" width = 60% height = 60% /></div>
 
 
 ### 第四步
@@ -58,9 +58,9 @@ Qt是面向对象的框架，使用特殊的代码生成扩展以及一些宏，
 
 预期产出：显示当时时间，计时器实现开始和暂停功能并且界面美观。
 
-<div align=center><img src="display/display_timer_1.png" alt="时钟" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_timer_1.png" alt="时钟" width = 60% height = 60% /></div>
 
-<div align=center><img src="display/display_timer_2.png" alt="时钟" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_timer_2.png" alt="时钟" width = 60% height = 60% /></div>
 
 ### 第五步
 
@@ -68,9 +68,9 @@ Qt是面向对象的框架，使用特殊的代码生成扩展以及一些宏，
 
 预期产出：流畅滑动，可以添加、删除和检索备忘录，界面美观。
 
-<div align=center><img src="display/display_memo_1.png" alt="备忘录" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_memo_1.png" alt="备忘录" width = 60% height = 60% /></div>
 
-<div align=center><img src="display/display_memo_2.png" alt="备忘录" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_memo_2.png" alt="备忘录" width = 60% height = 60% /></div>
 
 ### 第六步
 
@@ -84,9 +84,9 @@ Qt是面向对象的框架，使用特殊的代码生成扩展以及一些宏，
 
 预期产出：可以切换网格大小，记录历史分数。
 
-<div align=center><img src="display/display_2048_start.png" alt="2048" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_2048_start.png" alt="2048" width = 60% height = 60% /></div>
 
-<div align=center><img src="display/display_2048_over.png" alt="2048" width = 60% height = 60% /></div>
+<div align=center><img src="https://github.com/littlebrotherdog/desktop-gadgets-in-uos/blob/main/display/display_2048_over.png" alt="2048" width = 60% height = 60% /></div>
 
 ### 第八步
 
